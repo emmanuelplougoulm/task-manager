@@ -45,6 +45,7 @@ const filteredTasks = computed(() => {
           <!-- <span v-if="sortDirection === 'asc'">▲</span>
           <span v-else>▼</span> -->
         </th>
+      <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -52,6 +53,8 @@ const filteredTasks = computed(() => {
         <!-- Don't forget to add logic to display a message when filtered items are 0 -->
 
     <TaskRow
+        v-for="task in filteredTasks"
+        :key="task.id"
       :title="task.title"
       :description="task.description"
       :status="task.status"
@@ -62,4 +65,17 @@ const filteredTasks = computed(() => {
   </table>
 </template>
 
-<style scoped></style>
+<style scoped>
+table {
+  width: 100%;
+  border: 1px red solid;
+}
+table {
+  width: 100%;
+  border: 1px violet solid;
+}
+tr {
+  width: 100%;
+  border: 1px green solid;
+}
+</style>
