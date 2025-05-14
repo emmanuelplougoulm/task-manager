@@ -23,13 +23,14 @@ const useTaskStore = defineStore('task', () => {
 
   const tasks = ref<TTask[]>([])
 
-  function addNewTask(title: string, status: TTaskStatus) {
+  function addNewTask(title: string, description: string, dueDate: string) {
     const newTask = { ...taskSchema }
     const uniqueId = uuidv4()
 
     newTask.id = uniqueId
     newTask.title = title
-    newTask.status = status
+    newTask.description = description
+    newTask.dueDate = dueDate
 
     tasks.value.push(newTask)
   }
