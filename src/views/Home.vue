@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import FullList from '@components/FullList/FullList.vue'
+import TaskTable from '@components/TaskTable/TaskTable.vue'
 import Board from '@components/Board/Board.vue'
 
 const activeTab = ref(0)
 
 const defaultTabs = [
-  { title: 'Full list', content: FullList },
+  { title: 'Full list', content: TaskTable },
   { title: 'Board view', content: Board },
 ]
 
