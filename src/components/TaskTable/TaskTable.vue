@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { ref, computed, toRefs } from 'vue'
+
 import NewTaskCard from '@components/NewTaskCard/NewTaskCard.vue'
 import TaskRow from '@components/TaskRow/TaskRow.vue'
 
-import useTaskStore from '@stores/taskStore'
+import { useTaskStore } from '@stores/taskStore'
 
 const taskStore = useTaskStore()
-const { tasks } = taskStore
+const { tasks, hasTask } = toRefs(taskStore)
+
 </script>
 
 <template>
@@ -14,7 +17,8 @@ const { tasks } = taskStore
     <NewTaskCard />
   </div>
 
-  <div v-for="task in tasks" :key="task.id">
+  <div v-if="hasTask">Display task list</div>
+  <div v-else>You have no task yet, create one</div>
     <TaskRow
       :title="task.title"
       :description="task.description"
