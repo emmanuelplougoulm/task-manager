@@ -2,9 +2,6 @@
 import { ref } from 'vue'
 import FullList from '@components/FullList/FullList.vue'
 import Board from '@components/Board/Board.vue'
-import useTaskStore from '@stores/taskStore'
-
-const taskStore = useTaskStore()
 
 const activeTab = ref(0)
 
@@ -24,9 +21,6 @@ const setActiveTab = (index: number): void => {
       <span>LOGO</span>
     </header>
     <div class="content">
-      <div class="temp-container">
-        <button @click="() => taskStore.addNewTask('newTask')">Add task</button>
-      </div>
       <div v-for="(tab, index) in defaultTabs" :key="index">
         <div @click="() => setActiveTab(index)">{{ tab.title }}</div>
       </div>
