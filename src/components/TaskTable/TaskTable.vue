@@ -35,7 +35,6 @@ const filteredTasks = computed(() => {
     const dateB = new Date(b.dueDate)
     return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA
   })
-  console.log('filtered', filtered.value)
 })
 </script>
 
@@ -44,6 +43,7 @@ const filteredTasks = computed(() => {
     Add new task
     <NewTaskCard />
   </div>
+
   <div style="margin: 1em 0">
     <label for="statusFilter">Filtrer par statut :</label>
     <select id="statusFilter" v-model="filterStatus">
@@ -64,33 +64,32 @@ const filteredTasks = computed(() => {
 
   <div v-if="hasTask">Display task list</div>
   <div v-else>You have no task yet, create one</div>
+
   <table v-if="hasTask">
-    <thead>
-      <tr>
-        <th>Titre</th>
-        <th>Description</th>
-        <th>Statut</th>
-        <th @click="toggleSort">
-          Date limite
+    <tr>
+      <th>Titre</th>
+      <th>Description</th>
+      <th>Statut</th>
+      <th @click="toggleSort">
+        Date limite
         <span v-if="sortOrder === 'asc'">▲</span>
         <span v-else>▼</span>
-        </th>
+      </th>
       <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <div v-for="task in filteredTasks" :key="task.id">
-        <!-- Don't forget to add logic to display a message when filtered items are 0 -->
+    </tr>
 
-    <TaskRow
+    <tbody>
+      <!-- Don't forget to add logic to display a message when filtered items are 0 -->
+
+      <TaskRow
         v-for="task in filteredTasks"
         :key="task.id"
-      :title="task.title"
-      :description="task.description"
-      :status="task.status"
-      :dueDate="task.dueDate"
-    />
-  </div>
+        :title="task.title"
+        :description="task.description"
+        :status="task.status"
+        :dueDate="task.dueDate"
+        :id="task.id"
+      />
     </tbody>
   </table>
 </template>
