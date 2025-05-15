@@ -89,9 +89,7 @@ const filteredTasks = computed(() => {
         :dueDate="task.dueDate"
         :id="task.id"
       />
-      <BaseModal :show="showModal">
-        <div @click="toggleModal">close</div>
-      </BaseModal>
+      <EditModal :show="showModal" />
     </tbody>
   </table>
 </template>
