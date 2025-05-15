@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, toRefs } from 'vue'
 
-import NewTaskCard from '@components/NewTaskCard/NewTaskCard.vue'
-import TaskRow from '@components/TaskRow/TaskRow.vue'
+import BaseModal from '@components/BaseModal/BaseModal.vue';
 
 import { useTaskStore } from '@stores/taskStore'
 
 type TSortDirection = 'asc' | 'desc'
 
-const taskStore = useTaskStore()
-const { tasks, hasTask } = toRefs(taskStore)
+const modalStore = useModalStore();
+const { showModal, toggleModal } = toRefs(modalStore);
 
 const filterStatus = ref(null)
 const sortOrder = ref<TSortDirection>('asc')
@@ -90,6 +89,9 @@ const filteredTasks = computed(() => {
         :dueDate="task.dueDate"
         :id="task.id"
       />
+      <BaseModal :show="showModal">
+        <div @click="toggleModal">close</div>
+      </BaseModal>
     </tbody>
   </table>
 </template>
