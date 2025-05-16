@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, toRefs, watch } from 'vue';
-import BaseModal from '../BaseModal/BaseModal.vue';
+import { BaseModal } from '@components/index';
 import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
 const taskStore = useTaskStore();

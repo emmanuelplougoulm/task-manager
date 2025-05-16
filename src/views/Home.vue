@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import TaskTable from '@components/TaskTable/TaskTable.vue'
-import Board from '@components/Board/Board.vue'
+import { TaskTable, Board } from '@components/index';
 
 const activeTab = ref(0)
 
