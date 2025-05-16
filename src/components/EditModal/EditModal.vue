@@ -1,21 +1,39 @@
 <script setup lang="ts">
 import { ref, toRefs, watch } from 'vue';
 import BaseModal from '../BaseModal/BaseModal.vue';
-import { useTaskStore } from '@stores/taskStore';
-import { useModalStore } from '@stores/modalStore';
+import { useTaskStore } from '../../stores/taskStore';
+import { useModalStore } from '../../stores/modalStore';
+import { useToastStore } from '../../stores/toastStore';
 
 const taskStore = useTaskStore();
-const { getTaskById } = taskStore;
+const { getTaskById, editTask } = taskStore;
 
 const modalStore = useModalStore();
 const { currentTaskId, showModal } = toRefs(modalStore);
 
-const currentTask = ref(null);
+const toast = useToastStore();
+
+const localTask = ref();
 
 watch(currentTaskId, (newId) => {
-  currentTask.value = getTaskById(newId);
-  console.log('currentTask.value', currentTask.value);
+  if (!newId) return;
+  const originalTask = getTaskById(newId);
+
+  if (originalTask) {
+    localTask.value = { ...originalTask };
+  }
 });
+
+const handleEditTask = () => {
+  const success = editTask(localTask.value);
+  if (success) {
+    toast.show('Tâche mise à jour !', 'success');
+  } else {
+    toast.show('smth went wrong', 'error');
+  }
+
+  showModal.value = false;
+};
 
 defineProps({
   show: Boolean
@@ -24,13 +42,15 @@ defineProps({
 
 <template>
   <BaseModal :show="showModal">
-    <div v-if="currentTask" class="content">
-      <div>{{ currentTask.title }}</div>
-      <div>{{ currentTask.description }}</div>
-      <div>{{ currentTask.dueDate }}</div>
-      <div>{{ currentTask.status }}</div>
+    <div v-if="localTask" class="content">
+      <input v-model="localTask.title" />
+      <input v-model="localTask.description" />
+      <input v-model="localTask.dueDate" />
+      <input v-model="localTask.status" />
     </div>
-    <div class="button__group"></div>
+    <div class="button__group">
+      <div @click="handleEditTask">save</div>
+    </div>
   </BaseModal>
 </template>
 
