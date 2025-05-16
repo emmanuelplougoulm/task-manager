@@ -9,8 +9,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTaskStore } from '@/stores/taskStore.ts';
-import { useToastStore } from '../../stores/toastStore';
+import { useTaskStore, useToastStore } from '@stores/index';
 
 const taskStore = useTaskStore();
 const { addNewTask } = taskStore;

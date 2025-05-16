@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { useToastStore } from '../../stores/toastStore';
+import { useToastStore } from '@stores/index';
 import { storeToRefs } from 'pinia';
 
 const toastStore = useToastStore();

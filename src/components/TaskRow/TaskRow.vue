@@ -12,9 +12,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
 import Cell from './Cell.vue';
-import { useTaskStore } from '../../stores/taskStore';
-import { useModalStore } from '../../stores/modalStore';
-import { useToastStore } from '../../stores/toastStore';
+import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
 type TTaskCardProps = {
   title: string;
