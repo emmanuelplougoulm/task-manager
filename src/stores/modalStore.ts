@@ -2,22 +2,19 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useModalStore = defineStore('modal', () => {
-  const showModal = ref(false);
+  const showAddModal = ref<boolean>(false);
+  const showEditModal = ref<boolean>(false);
+
   const currentTaskId = ref<string>('');
 
-  const toggleModal = () => {
-    showModal.value = !showModal.value;
-  };
-
-  const openModal = (id: string) => {
+  const openEditModal = (id: string) => {
     currentTaskId.value = id;
-    toggleModal();
   };
 
   return {
-    showModal,
-    toggleModal,
+    showAddModal,
+    showEditModal,
     currentTaskId,
-    openModal
+    openEditModal
   };
 });
