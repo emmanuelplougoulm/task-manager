@@ -1,16 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TaskTable, Board } from '@components/index';
 
-const activeTab = ref(0)
+const activeTab = ref(0);
 
 const defaultTabs = [
   { title: 'Full list', content: TaskTable },
-  { title: 'Board view', content: Board },
-]
+  { title: 'Board view', content: Board }
+];
 
 const setActiveTab = (index: number): void => {
-  activeTab.value = index
-}
+  activeTab.value = index;
+};
 </script>
 
 <template>
@@ -32,6 +33,7 @@ const setActiveTab = (index: number): void => {
 
 <style scoped>
 main {
+  font-family: var(--font-family);
   display: flex;
   flex-direction: column;
   height: 100%;
