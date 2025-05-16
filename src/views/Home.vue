@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { TaskTable, Board, Tabs } from '@components/index';
 import Logo from '@assets/mangopay__logo.png';
 
 const defaultTabs = [
@@ -18,13 +18,12 @@ const setActiveTab = (index: number): void => {
       <img :src="Logo" class="logo" />
     </header>
     <div class="content">
-      <div v-for="(tab, index) in defaultTabs" :key="index">
-        <div @click="() => setActiveTab(index)">{{ tab.title }}</div>
-      </div>
-
-      <div>
-        <component :is="defaultTabs[activeTab].content" />
-      </div>
+      <Tabs :tabs="defaultTabs">
+        <template #tab-0>
+          <TaskTable />
+        </template>
+        <template #tab-1> <Board /> </template>
+      </Tabs>
     </div>
   </main>
 </template>
