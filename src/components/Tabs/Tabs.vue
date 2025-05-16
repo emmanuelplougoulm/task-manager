@@ -4,26 +4,23 @@
       <button
         v-for="(tab, idx) in tabs"
         :key="tab"
-        :class="['tabs__tab', { 'tabs__tab--active': idx === activeTab }]"
-        @click="activeTab = idx"
+        :class="['tabs__tab', { 'tabs__tab--active': idx === modelValue }]"
+        @click="modelValue = idx"
       >
         {{ tab }}
       </button>
-    </div>
-    <div class="tabs__content">
-      <slot :name="`tab-${activeTab}`" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { defineProps, defineModel } from 'vue';
 
 defineProps<{
   tabs: string[];
 }>();
 
-const activeTab = ref(0);
+const modelValue = defineModel<number>({ default: 0 });
 </script>
 
 <style scoped>
