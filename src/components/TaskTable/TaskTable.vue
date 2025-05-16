@@ -3,7 +3,7 @@ import { ref, computed, toRefs } from 'vue'
 
 import BaseModal from '@components/BaseModal/BaseModal.vue';
 
-import { useTaskStore } from '@stores/taskStore'
+import { useTaskStore, useModalStore } from '@stores/index';
 
 type TSortDirection = 'asc' | 'desc'
 
