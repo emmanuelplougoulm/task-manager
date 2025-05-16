@@ -2,9 +2,8 @@
 import { TaskTable, Board, Tabs } from '@components/index';
 import Logo from '@assets/mangopay__logo.png';
 
-const defaultTabs = [
-  { title: 'Full list', content: TaskTable },
-  { title: 'Board view', content: Board }
+const taskStore = useTaskStore();
+const { hasTask, filterStatus, filteredTasks, sortOrder } = toRefs(taskStore);
 ];
 
 const setActiveTab = (index: number): void => {

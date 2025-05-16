@@ -1,18 +1,19 @@
 import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
-import type { TTask, TTaskStatus } from '@/custom-types/types';
+import type { TTask, TTaskStatus, TSortDirection } from '@/custom-types/types';
 
+/* PERSISTENCY */
 const TASKS_STORAGE_KEY: string = 'tasks';
 
-function saveTasksToLocalStorage(tasks: TTask[]) {
+const saveTasksToLocalStorage = (tasks: TTask[]): void => {
   localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
-}
+};
 
-function loadTasksFromLocalStorage(): TTask[] {
+const loadTasksFromLocalStorage = (): TTask[] => {
   const data = localStorage.getItem(TASKS_STORAGE_KEY);
   return data ? JSON.parse(data) : [];
-}
+};
 
 export const useTaskStore = defineStore('task', () => {
   const defaultTasks: TTask[] = [
@@ -24,12 +25,32 @@ export const useTaskStore = defineStore('task', () => {
       status: 'todo'
     }
   ];
+
+  /* REFS */
+  const filterStatus = ref(null);
+  const sortOrder = ref<TSortDirection>('asc');
+
   const tasks = ref<TTask[]>(
     loadTasksFromLocalStorage().length > 0 ? loadTasksFromLocalStorage() : defaultTasks
   );
 
+  /* COMPUTED */
   const hasTask = computed(() => tasks.value.length > 0);
 
+  /* TODO split in 2 functions */
+  const filteredTasks = computed(() => {
+    let filtered = tasks.value;
+    if (filterStatus.value) {
+      filtered = filtered.filter((task) => task.status === filterStatus.value);
+    }
+    return filtered.slice().sort((a, b) => {
+      const dateA = new Date(a.dueDate);
+      const dateB = new Date(b.dueDate);
+      return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+  });
+
+  /* WATCH */
   watch(
     tasks,
     (newTasks) => {
@@ -38,7 +59,11 @@ export const useTaskStore = defineStore('task', () => {
     { deep: true }
   );
 
-  function addNewTask(task: { title: string; description: string; dueDate: string }) {
+  const addNewTask = (task: {
+    title: string;
+    description: string;
+    dueDate: string;
+  }): boolean => {
     try {
       const newTask: TTask = {
         id: uuidv4(),
@@ -54,9 +79,9 @@ export const useTaskStore = defineStore('task', () => {
       window.alert(error);
       return false;
     }
-  }
+  };
 
-  function editTask(updatedTask: TTask) {
+  const editTask = (updatedTask: TTask): boolean => {
     try {
       const index = tasks.value.findIndex((task) => task.id === updatedTask.id);
       tasks.value[index] = { ...tasks.value[index], ...updatedTask };
@@ -66,9 +91,9 @@ export const useTaskStore = defineStore('task', () => {
       window.alert(error);
       return false;
     }
-  }
+  };
 
-  function deleteTask(id: string) {
+  const deleteTask = (id: string): boolean => {
     try {
       const initialLength = tasks.value.length;
       tasks.value = tasks.value.filter((task) => task.id !== id);
@@ -81,9 +106,9 @@ export const useTaskStore = defineStore('task', () => {
       window.alert(error);
       return false;
     }
-  }
+  };
 
-  function getTaskById(id: string): TTask | undefined {
+  const getTaskById = (id: string): TTask | undefined => {
     try {
       const foundTask = tasks.value.find((task) => task.id === id);
       if (!foundTask) {
@@ -94,11 +119,14 @@ export const useTaskStore = defineStore('task', () => {
       window.alert(error instanceof Error ? error.message : String(error));
       return undefined;
     }
-  }
+  };
 
   return {
     tasks,
     hasTask,
+    filterStatus,
+    filteredTasks,
+    sortOrder,
     addNewTask,
     deleteTask,
     getTaskById,
