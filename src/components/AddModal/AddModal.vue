@@ -11,12 +11,27 @@ const { showAddModal } = toRefs(modalStore);
 
 const toast = useToastStore();
 
-const localTask = ref();
+const localTask = ref({
+  title: '',
+  description: '',
+  dueDate: ''
+});
+
+function getTrimmedTask() {
+  return {
+    title: localTask.value.title.trim(),
+    description: localTask.value.description.trim(),
+    dueDate: localTask.value.dueDate.trim()
+  };
+}
 
 const handleAddTask = () => {
-  const success = addNewTask(localTask.value);
+  const trimmedTask = getTrimmedTask();
+
+  const success = addNewTask(trimmedTask);
   if (success) {
-    toast.show('Tâche mise à jour !', 'success');
+    toast.show('Tâche créée !', 'success');
+    localTask.value = { title: '', description: '', dueDate: '' };
   } else {
     toast.show('smth went wrong', 'error');
   }
@@ -32,11 +47,9 @@ defineProps({
 <template>
   <BaseModal :show="showAddModal">
     <div class="content">
-      Add modal
-      <!-- <input v-model="localTask.title" />
-      <input v-model="localTask.description" />
-      <input v-model="localTask.dueDate" />
-      <input v-model="localTask.status" /> -->
+      <input v-model="localTask.title" placeholder="Type a title" />
+      <input v-model="localTask.description" placeholder="Type a description" />
+      <input v-model="localTask.dueDate" placeholder="dd/mm/yyyy" />
     </div>
     <div class="button__group">
       <div @click="handleAddTask">save</div>
