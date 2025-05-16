@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, toRefs } from 'vue'
-
-import BaseModal from '@components/BaseModal/BaseModal.vue';
-
+import { NewTaskCard, TaskRow, EditModal } from '@components/index';
 import { useTaskStore, useModalStore } from '@stores/index';
 
 type TSortDirection = 'asc' | 'desc'
