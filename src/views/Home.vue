@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { TaskTable, Board } from '@components/index';
-
-const activeTab = ref(0);
+import Logo from '@assets/mangopay__logo.png';
 
 const defaultTabs = [
   { title: 'Full list', content: TaskTable },
@@ -17,7 +15,7 @@ const setActiveTab = (index: number): void => {
 <template>
   <main>
     <header>
-      <span>LOGO</span>
+      <img :src="Logo" class="logo" />
     </header>
     <div class="content">
       <div v-for="(tab, index) in defaultTabs" :key="index">
