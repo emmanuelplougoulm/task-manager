@@ -1,40 +1,42 @@
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
 import type { TTask, TTaskStatus } from '@/custom-types/types';
 
+const TASKS_STORAGE_KEY: string = 'tasks';
+
+function saveTasksToLocalStorage(tasks: TTask[]) {
+  localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage(): TTask[] {
+  const data = localStorage.getItem(TASKS_STORAGE_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
 export const useTaskStore = defineStore('task', () => {
-  const tasks = ref<TTask[]>([
+  const defaultTasks: TTask[] = [
     {
-      id: 'sdfsdf',
-      title: 'sss',
-      description: 'ik',
-      status: 'pending',
-      dueDate: '2024-03-1'
-    },
-    {
-      id: 'sdfsdfsdfazazazaz',
-      title: 'ssqqz',
-      description: 'qs',
-      status: 'pending',
-      dueDate: '2024-03-2'
-    },
-    {
-      id: 'hgjkkhjk',
-      title: 'df',
-      description: 'qsqs',
-      status: 'pending',
-      dueDate: '2024-03-3'
-    },
-    { id: 'sftfgdh', title: '', description: '', status: 'done', dueDate: '2024-03-4' },
-    { id: 'tttttr', title: '', description: '', status: 'done', dueDate: '2024-03-6' },
-    { id: 'nnnnh', title: '', description: '', status: 'done', dueDate: '2024-03-22' },
-    { id: 'ttttf', title: '', description: '', status: 'done', dueDate: '2024-03-10' },
-    { id: 'aaaaz', title: '', description: '', status: 'todo', dueDate: '2024-03-14' },
-    { id: 'eeeeeeeee', title: '', description: '', status: 'todo', dueDate: '2024-03-13' }
-  ]);
+      id: '',
+      title: '',
+      description: '',
+      dueDate: '',
+      status: 'todo'
+    }
+  ];
+  const tasks = ref<TTask[]>(
+    loadTasksFromLocalStorage().length > 0 ? loadTasksFromLocalStorage() : defaultTasks
+  );
 
   const hasTask = computed(() => tasks.value.length > 0);
+
+  watch(
+    tasks,
+    (newTasks) => {
+      saveTasksToLocalStorage(newTasks);
+    },
+    { deep: true }
+  );
 
   function addNewTask(task: { title: string; description: string; dueDate: string }) {
     try {
