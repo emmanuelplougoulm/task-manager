@@ -10,9 +10,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useTaskStore } from '@/stores/taskStore.ts';
+import { useToastStore } from '../../stores/toastStore';
 
 const taskStore = useTaskStore();
 const { addNewTask } = taskStore;
+
+const toast = useToastStore();
 
 const task = ref({
   title: '',
@@ -31,9 +34,13 @@ function getTrimmedTask() {
 const handleAddTask = () => {
   const trimmedTask = getTrimmedTask();
 
-  if (trimmedTask.title !== '') {
-    addNewTask(trimmedTask);
+  const success = addNewTask(trimmedTask);
+
+  if (success) {
+    toast.show('Tâche créée !', 'success');
     task.value = { title: '', description: '', dueDate: '' };
+  } else {
+    toast.show('Erreur lors de la suppression de la tâche.', 'error');
   }
 };
 </script>

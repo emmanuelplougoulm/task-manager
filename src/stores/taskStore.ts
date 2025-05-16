@@ -49,22 +49,22 @@ export const useTaskStore = defineStore('task', () => {
       };
 
       tasks.value.push(newTask);
+      return true;
     } catch (error) {
       window.alert(error);
+      return false;
     }
   }
 
   function editTask(updatedTask: TTask) {
     try {
       const index = tasks.value.findIndex((task) => task.id === updatedTask.id);
-
-      if (index === -1) {
-        window.alert(`Task with id ${updatedTask.id} not found.`);
-      }
-
       tasks.value[index] = { ...tasks.value[index], ...updatedTask };
+
+      return true;
     } catch (error) {
       window.alert(error);
+      return false;
     }
   }
 
@@ -76,8 +76,10 @@ export const useTaskStore = defineStore('task', () => {
       if (tasks.value.length === initialLength) {
         window.alert(`Task with id ${id} not found.`);
       }
+      return true;
     } catch (error) {
       window.alert(error);
+      return false;
     }
   }
 
