@@ -39,18 +39,20 @@ export const useTaskStore = defineStore('task', () => {
     { id: 'eeeeeeeee', title: '', description: '', status: 'todo', dueDate: '2024-03-13' },
   ])
 
-  const hasTask = computed(() => tasks.value.length > 0)
+  function addNewTask(task: { title: string; description: string; dueDate: string }) {
+    try {
+      const newTask: TTask = {
+        id: uuidv4(),
+        title: task.title,
+        description: task.description,
+        dueDate: task.dueDate,
+        status: 'todo' as TTaskStatus
+      };
 
-  function addNewTask(title: string, description: string, dueDate: string) {
-    const newTask = { ...taskSchema }
-    const uniqueId = uuidv4()
-
-    newTask.id = uniqueId
-    newTask.title = title
-    newTask.description = description
-    newTask.dueDate = dueDate
-
-    tasks.value.push(newTask)
+      tasks.value.push(newTask);
+    } catch (error) {
+      window.alert(error);
+    }
   }
 
   function updateTaskStatus(id: string, status: TTaskStatus) {
