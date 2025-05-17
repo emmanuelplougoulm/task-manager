@@ -62,7 +62,8 @@ const selectOption = (value: string) => {
 
 .dropdown {
   position: relative;
-  max-width: 12.5rem;
+  min-width: 100px;
+  max-width: 200px;
   cursor: pointer;
   text-transform: capitalize;
 
