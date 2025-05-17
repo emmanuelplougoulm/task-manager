@@ -1,5 +1,5 @@
-import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
 export const useModalStore = defineStore('modal', () => {
   const showAddModal = ref<boolean>(false);
@@ -9,6 +9,7 @@ export const useModalStore = defineStore('modal', () => {
 
   const openEditModal = (id: string) => {
     currentTaskId.value = id;
+    showEditModal.value = true;
   };
 
   return {
