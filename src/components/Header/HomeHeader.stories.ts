@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import HomeHeader from './HomeHeader.vue';
+
+import HomeHeader from './Header.vue';
 
 const meta: Meta<typeof HomeHeader> = {
   title: 'Components/HomeHeader',

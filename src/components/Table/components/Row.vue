@@ -4,14 +4,16 @@
     <Cell :value="description" />
     <Cell :value="status" />
     <Cell :value="dueDate" />
-    <td @click="handleDeleteTask(id)">delete task</td>
-    <td @click="openModal(id)">edit task</td>
+    <td class="actions">
+      <BaseIcon @click="openEditModal(id)" class="row__icon" iconName="pencil" />
+      <BaseIcon @click="handleDeleteTask(id)" class="row__icon" iconName="garbage" />
+    </td>
   </tr>
 </template>
 
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import Cell from './Cell.vue';
+import { BaseIcon, Cell } from '@components/index';
 import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
 type TTaskCardProps = {
@@ -27,11 +29,16 @@ const taskStore = useTaskStore();
 const { deleteTask } = taskStore;
 
 const modalStore = useModalStore();
-const { openModal } = toRefs(modalStore);
+const { openEditModal } = toRefs(modalStore);
 
 const toast = useToastStore();
 
 const handleDeleteTask = (id: string) => {
+  const confirmed = window.confirm(
+    'You are about to delete this task, do you want to proceed? '
+  );
+  if (!confirmed) return;
+
   const success = deleteTask(id);
   if (success) toast.show('Tâche supprimée!', 'success');
   else {
@@ -42,7 +49,16 @@ const handleDeleteTask = (id: string) => {
 
 <style scoped>
 tr {
-  width: 100%;
-  height: 40px;
+  border: none;
+}
+
+.actions {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.row__icon {
+  width: 1rem;
+  height: 1rem;
 }
 </style>
