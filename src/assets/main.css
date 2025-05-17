@@ -1,7 +1,0 @@
-@import './base.css';
-@import './variables.css';
-
-#app {
-  padding: 2rem;
-  height: 100%;
-}
