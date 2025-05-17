@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, toRefs, watch } from 'vue';
-import { BaseModal } from '@components/index';
+import { BaseModal, TextInput, Button } from '@components/index';
 import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
 const taskStore = useTaskStore();
 const { getTaskById, editTask } = taskStore;
 
 const modalStore = useModalStore();
-const { currentTaskId, showModal } = toRefs(modalStore);
+const { currentTaskId, showEditModal } = toRefs(modalStore);
 
 const toast = useToastStore();
 
@@ -30,7 +30,7 @@ const handleEditTask = () => {
     toast.show('smth went wrong', 'error');
   }
 
-  showModal.value = false;
+  showEditModal.value = false;
 };
 
 defineProps({
@@ -39,15 +39,15 @@ defineProps({
 </script>
 
 <template>
-  <BaseModal :show="showModal">
+  <BaseModal :show="showEditModal">
     <div v-if="localTask" class="content">
-      <input v-model="localTask.title" />
-      <input v-model="localTask.description" />
-      <input v-model="localTask.dueDate" />
-      <input v-model="localTask.status" />
+      <TextInput label="title" v-model:text="localTask.title" />
+      <TextInput label="description" v-model:text="localTask.description" />
+      <TextInput label="due date" v-model:text="localTask.dueDate" hint="dd/mm/yyyy" />
     </div>
     <div class="button__group">
-      <div @click="handleEditTask">save</div>
+      <Button @click="handleEditTask" label="Save" />
+      <Button @click="() => (showEditModal = false)" label="Cancel" />
     </div>
   </BaseModal>
 </template>
