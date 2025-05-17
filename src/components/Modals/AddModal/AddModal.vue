@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { BaseModal } from '@components/index';
+import { BaseModal, TextInput, Button } from '@components/index';
 import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
 const taskStore = useTaskStore();
@@ -39,6 +39,12 @@ const handleAddTask = () => {
   showAddModal.value = false;
 };
 
+const handleCancel = () => {
+  localTask.value = { title: '', description: '', dueDate: '' };
+
+  showAddModal.value = false;
+};
+
 defineProps({
   show: Boolean
 });
@@ -47,12 +53,13 @@ defineProps({
 <template>
   <BaseModal :show="showAddModal">
     <div class="content">
-      <input v-model="localTask.title" placeholder="Type a title" />
-      <input v-model="localTask.description" placeholder="Type a description" />
-      <input v-model="localTask.dueDate" placeholder="dd/mm/yyyy" />
+      <TextInput label="title" v-model:text="localTask.title" />
+      <TextInput label="description" v-model:text="localTask.description" />
+      <TextInput label="due date" v-model:text="localTask.dueDate" hint="dd/mm/yyyy" />
     </div>
     <div class="button__group">
-      <div @click="handleAddTask">save</div>
+      <Button label="Add new task" :onClick="handleAddTask" />
+      <Button label="Cancel" :onClick="handleCancel" />
     </div>
   </BaseModal>
 </template>
