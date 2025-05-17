@@ -26,23 +26,22 @@ const modelValue = defineModel<number>({ default: 0 });
 <style scoped>
 .tabs {
   font-family: var(--font-family);
+  font-size: var(--font-size-body);
   background-color: white;
-  height: 100%;
 }
 
 .tabs__headers {
   display: flex;
-  border-bottom: 2px solid #e5e7eb;
 }
 .tabs__tab {
   background: none;
   border: none;
   outline: none;
   text-transform: capitalize;
-  padding: 12px 24px;
+  text-wrap: nowrap;
+  padding: 8px 12px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   color: #374151;
   border-bottom: 2px solid transparent;
   transition:
@@ -51,15 +50,12 @@ const modelValue = defineModel<number>({ default: 0 });
     color 0.2s;
 }
 .tabs__tab:hover {
-  background: rgb(229, 227, 227);
+  background: var(--color-secondary-text);
 }
 .tabs__tab--active {
   color: var(--color-primary-text);
   border-bottom: 2px solid var(--color-primary-text);
   font-weight: 600;
-  background: var(--color-secondary-bg);
-}
-.tabs__content {
-  padding: 24px 0 0 0;
+  /* background: var(--color-secondary-bg); */
 }
 </style>
