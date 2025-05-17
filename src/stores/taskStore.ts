@@ -2,18 +2,8 @@ import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
 import type { TTask, TTaskStatus, TSortDirection } from '@/custom-types/types';
-
-/* PERSISTENCY */
-const TASKS_STORAGE_KEY: string = 'tasks';
-
-const saveTasksToLocalStorage = (tasks: TTask[]): void => {
-  localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
-};
-
-const loadTasksFromLocalStorage = (): TTask[] => {
-  const data = localStorage.getItem(TASKS_STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
-};
+import { saveTasksToLocalStorage, loadTasksFromLocalStorage } from '@/utils/localStorage';
+import { filterTasksByStatus, sortTasksByDueDate } from '@/utils/format';
 
 export const useTaskStore = defineStore('task', () => {
   const defaultTasks: TTask[] = [
@@ -39,15 +29,8 @@ export const useTaskStore = defineStore('task', () => {
 
   /* TODO split in 2 functions */
   const filteredTasks = computed(() => {
-    let filtered = tasks.value;
-    if (filterStatus.value) {
-      filtered = filtered.filter((task) => task.status === filterStatus.value);
-    }
-    return filtered.slice().sort((a, b) => {
-      const dateA = new Date(a.dueDate);
-      const dateB = new Date(b.dueDate);
-      return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA;
-    });
+    const filtered = filterTasksByStatus(tasks.value, filterStatus.value);
+    return sortTasksByDueDate(filtered, sortOrder.value);
   });
 
   /* WATCH */
