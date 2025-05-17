@@ -9,7 +9,10 @@
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@composables/*": ["./src/composables/*"],
+      "@icons/*": ["./src/assets/icons/*"],
       "@stores/*": ["./src/stores/*"],
+      "@styles/*": ["./src/assets/styles/*"],
       "@views/*": ["./src/views/*"]
     }
   }
