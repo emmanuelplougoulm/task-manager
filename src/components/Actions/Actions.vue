@@ -1,22 +1,10 @@
-<template>
-  <div class="home__actions">
-    <Tabs :tabs="defaultTabs" v-model="modelValue" />
-    <div class="home__actions__spacer"></div>
-
-    <div v-if="showTable" class="home__actions__cta">
-      <Dropdown v-model="sortOrder" :options="SORT_OPTIONS" placeholder="Sort" />
-      <Dropdown v-model="filterStatus" :options="FILTER_OPTIONS" placeholder="Filter" />
-
-      <Button label="Add new task" :onClick="() => (showAddModal = true)" />
-    </div>
-  </div>
-</template>
-
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { useModalStore, useTaskStore } from '@/stores';
+import { useModalStore, useTaskStore } from '@stores';
 import { Tabs, Button, Dropdown } from '@components/index';
-import { FILTER_OPTIONS, SORT_OPTIONS } from '@constants/index';
+import { FILTER_OPTIONS, SORT_OPTIONS, ACTIONS_TABS } from '@constants/index';
+import type { TActionsProps } from '@/custom-types/types';
 
 const taskStore = useTaskStore();
 const { filterStatus, sortOrder } = toRefs(taskStore);
@@ -24,13 +12,33 @@ const { filterStatus, sortOrder } = toRefs(taskStore);
 const modalStore = useModalStore();
 const { showAddModal } = toRefs(modalStore);
 
-const defaultTabs = ['list view', 'board view'];
-
-defineProps<{
-  showTable: boolean;
-}>();
+defineProps<TActionsProps>();
 const modelValue = defineModel<number>({ default: 0 });
 </script>
+
+<template>
+  <div class="home__actions">
+    <Tabs :tabs="ACTIONS_TABS" v-model="modelValue" />
+    <div class="home__actions__spacer"></div>
+
+    <div class="home__actions__cta">
+      <Dropdown
+        v-if="showTable"
+        v-model="sortOrder"
+        :options="SORT_OPTIONS"
+        placeholder="Sort"
+      />
+      <Dropdown
+        v-if="showTable"
+        v-model="filterStatus"
+        :options="FILTER_OPTIONS"
+        placeholder="Filter"
+      />
+
+      <Button label="Add new task" :onClick="() => (showAddModal = true)" />
+    </div>
+  </div>
+</template>
 
 <style>
 .home__actions {
@@ -56,11 +64,5 @@ const modelValue = defineModel<number>({ default: 0 });
     gap: 0.25rem;
     align-items: flex-start;
   }
-}
-
-@media only screen and (min-width: 601px) and (max-width: 991px) {
-}
-
-@media only screen and (min-width: 992px) {
 }
 </style>
