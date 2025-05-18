@@ -25,7 +25,7 @@ watch(currentTaskId, (newId) => {
 const handleEditTask = () => {
   const success = editTask(localTask.value);
   if (success) {
-    toast.show('Tâche mise à jour !', 'success');
+    toast.show('Task successfully updated !', 'success');
   } else {
     toast.show('smth went wrong', 'error');
   }
@@ -41,9 +41,9 @@ defineProps({
 <template>
   <BaseModal :show="showEditModal">
     <div v-if="localTask" class="content">
-      <TextInput label="title" v-model:text="localTask.title" />
-      <TextInput label="description" v-model:text="localTask.description" />
-      <TextInput label="due date" v-model:text="localTask.dueDate" hint="dd/mm/yyyy" />
+      <TextInput label="title" v-model:text="localTask.title" type="text" />
+      <TextInput label="description" v-model:text="localTask.description" type="text" />
+      <TextInput label="due date" v-model:text="localTask.dueDate" type="date" />
     </div>
     <div class="button__group">
       <Button @click="handleEditTask" label="Save" />

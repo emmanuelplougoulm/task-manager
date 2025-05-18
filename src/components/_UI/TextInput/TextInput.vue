@@ -7,7 +7,7 @@
         placeholder=""
         name="input"
         :class="[`input__input`, { error: error }]"
-        type="text"
+        :type="type"
         v-model="text"
         :aria-invalid="error ? 'true' : 'false'"
       />
@@ -26,6 +26,7 @@ type TTextInputProps = {
   label: string;
   hint?: string;
   error?: boolean;
+  type: string;
 };
 
 const text = defineModel<string>('text');
