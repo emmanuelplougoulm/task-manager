@@ -1,3 +1,14 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<script setup lang="ts">
+import { defineProps, defineModel } from 'vue';
+
+defineProps<{
+  tabs: string[];
+}>();
+
+const modelValue = defineModel<number>({ default: 0 });
+</script>
+
 <template>
   <div class="tabs">
     <div class="tabs__headers">
@@ -12,16 +23,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { defineProps, defineModel } from 'vue';
-
-defineProps<{
-  tabs: string[];
-}>();
-
-const modelValue = defineModel<number>({ default: 0 });
-</script>
 
 <style scoped>
 .tabs {
@@ -56,6 +57,5 @@ const modelValue = defineModel<number>({ default: 0 });
   color: var(--color-primary-text);
   border-bottom: 2px solid var(--color-primary-text);
   font-weight: 600;
-  /* background: var(--color-secondary-bg); */
 }
 </style>
