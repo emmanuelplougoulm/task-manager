@@ -6,15 +6,7 @@ import { saveTasksToLocalStorage, loadTasksFromLocalStorage } from '@/utils/loca
 import { filterTasksByStatus, sortTasksByDueDate } from '@/utils/format';
 
 export const useTaskStore = defineStore('task', () => {
-  const defaultTasks: TTask[] = [
-    {
-      id: '',
-      title: '',
-      description: '',
-      dueDate: '',
-      status: 'todo'
-    }
-  ];
+  const defaultTasks: TTask[] | [] = [];
 
   /* REFS */
   const filterStatus = ref(null);

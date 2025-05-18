@@ -1,19 +1,15 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { ref, computed, toRefs } from 'vue';
 import { Row } from '@components/index';
 import type { TTask } from '@/custom-types/types';
-import { useTaskStore } from '@/stores';
+import { TABLE_HEAD } from '@constants/index';
 
-const props = defineProps<{
+defineProps<{
   hasTask: boolean;
   filteredTasks: TTask[];
 }>();
 
-const taskStore = useTaskStore();
-
-console.log('filteredTasks', props.filteredTasks);
-
-const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
+// console.log('filteredTasks', props.filteredTasks);
 </script>
 
 <template>
@@ -25,9 +21,7 @@ const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
         </th>
       </tr>
     </thead>
-
     <tbody>
-      <!-- Don't forget to add logic to display a message when filtered items are 0 -->
       <Row
         v-for="task in filteredTasks"
         :key="task.id"
@@ -39,7 +33,9 @@ const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
       />
     </tbody>
   </table>
-  <div v-else>You have no task yet, create one</div>
+  <div class="table__no-task" v-else>
+    <p>Oh no ! You have no task yet... <br />Add one to get started !</p>
+  </div>
 </template>
 
 <style scoped>
@@ -66,5 +62,22 @@ tbody tr:nth-child(odd) {
 
 tbody tr:nth-child(even) {
   background-color: var(--color-secondary-bg);
+}
+
+.table__no-task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: var(--color-secondary-bg);
+  height: 100%;
+}
+
+.table__no-task p {
+  text-align: center;
+  font-family: var(--font-family);
+  color: var(--color-primary);
+  font-size: 48px;
+  font-weight: 600;
 }
 </style>
