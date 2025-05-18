@@ -1,3 +1,14 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<script setup lang="ts">
+import { useToastStore } from '@stores/index';
+import { Badge } from '@components/index';
+import { storeToRefs } from 'pinia';
+
+const toastStore = useToastStore();
+const { toasts } = storeToRefs(toastStore);
+const { remove } = toastStore;
+</script>
+
 <template>
   <transition-group name="toast" tag="div" class="toast-container">
     <div v-for="toast in toasts" :key="toast.id" class="toast">
@@ -11,16 +22,6 @@
     </div>
   </transition-group>
 </template>
-
-<script setup lang="ts">
-import { useToastStore } from '@stores/index';
-import { storeToRefs } from 'pinia';
-import { Badge } from '@components/index';
-
-const toastStore = useToastStore();
-const { toasts } = storeToRefs(toastStore);
-const { remove } = toastStore;
-</script>
 
 <style scoped>
 .toast-enter-active,
