@@ -53,9 +53,9 @@ defineProps({
 <template>
   <BaseModal :show="showAddModal">
     <div class="content">
-      <TextInput label="title" v-model:text="localTask.title" />
-      <TextInput label="description" v-model:text="localTask.description" />
-      <TextInput label="due date" v-model:text="localTask.dueDate" hint="dd/mm/yyyy" />
+      <TextInput label="title" v-model:text="localTask.title" type="text" />
+      <TextInput label="description" v-model:text="localTask.description" type="text" />
+      <TextInput label="due date" v-model:text="localTask.dueDate" type="date" />
     </div>
     <div class="button__group">
       <Button label="Add new task" :onClick="handleAddTask" />
