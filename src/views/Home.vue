@@ -3,7 +3,7 @@
 import { ref, computed, toRefs } from 'vue';
 import { Table, Board, Header, Actions } from '@components/index';
 import { useTaskStore } from '@/stores';
-import { useViewportWidth } from '@/composable/useViewportWidth';
+import { useViewportWidth } from '@composables/index';
 
 const taskStore = useTaskStore();
 const { hasTask, filteredTasks } = toRefs(taskStore);

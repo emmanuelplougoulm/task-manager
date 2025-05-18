@@ -1,3 +1,5 @@
+import { useDeleteTask } from '@composables/index';
+import { useModalStore } from '@stores/index';
 <template>
   <tr>
     <Cell :value="title" />
