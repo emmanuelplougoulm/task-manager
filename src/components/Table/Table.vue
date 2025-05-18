@@ -8,8 +8,6 @@ defineProps<{
   hasTask: boolean;
   filteredTasks: TTask[];
 }>();
-
-// console.log('filteredTasks', props.filteredTasks);
 </script>
 
 <template>
