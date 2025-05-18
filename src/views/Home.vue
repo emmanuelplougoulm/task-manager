@@ -48,7 +48,7 @@ const isReadable = computed(() => width.value > 400);
 .home__content {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 20px;
   background-color: white;
   border-radius: 8px;
 

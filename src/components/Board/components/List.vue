@@ -1,24 +1,17 @@
-<template>
-  <div class="list" @dragover.prevent @drop="onDrop">
-    <ListHeader :listName="listName" />
-    <Card
-      v-for="task in filteredTasks"
-      :key="task.id"
-      :title="task.title"
-      :id="task.id"
-    />
-  </div>
-</template>
-
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 import Card from './Card.vue';
 import ListHeader from './ListHeader.vue';
 import { useTaskStore } from '@stores/index';
 import { filterTasksByStatus } from '../../../utils/format.ts';
+import type { TTaskStatus } from '@/custom-types/types.ts';
 
 const props = defineProps({
-  listName: String
+  listName: {
+    type: String as PropType<TTaskStatus>,
+    required: true
+  }
 });
 const { listName } = props;
 
@@ -26,27 +19,36 @@ const taskStore = useTaskStore();
 const { tasks, editTaskStatus } = taskStore;
 
 const filteredTasks = computed(() => {
-  return filterTasksByStatus(tasks, listName);
+  return filterTasksByStatus(tasks, listName as string);
 });
 
-function onDrop(event) {
+function onDrop(event: { dataTransfer: { getData: (arg0: string) => any } }) {
   const taskId = event.dataTransfer.getData('taskId');
-  editTaskStatus(taskId, listName);
+
+  editTaskStatus(taskId, listName as TTaskStatus);
 }
 </script>
 
+<template>
+  <div class="list" @dragover.prevent @drop="onDrop">
+    <ListHeader :listName="listName" />
+    <Card
+      v-for="task in filteredTasks"
+      :key="task.id"
+      :title="task.title"
+      :description="task.description"
+      :dueDate="task.dueDate"
+      :id="task.id"
+    />
+  </div>
+</template>
+
 <style scoped>
 .list {
-  width: 272px;
-  background-color: aqua;
-  background-color: var(--secondary-color);
+  min-width: 272px;
+  background-color: var(--color-primary);
   padding: 1rem;
-  margin: 5px;
-  border-radius: var(--border-radius);
-  border: 1px red solid;
+  border-radius: 0.5rem;
   height: 100%;
-}
-.list:hover {
-  border: 0.5px solid var(--tertiary-color);
 }
 </style>
