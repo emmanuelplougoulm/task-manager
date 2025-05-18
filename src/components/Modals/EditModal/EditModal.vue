@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue';
+import { ref, toRefs, watch, computed } from 'vue';
 import { BaseModal, TextInput, Button } from '@components/index';
 import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
@@ -12,6 +12,10 @@ const { currentTaskId, showEditModal } = toRefs(modalStore);
 const toast = useToastStore();
 
 const localTask = ref();
+
+const titleError = computed(() => !localTask.value.title.trim());
+const descriptionError = computed(() => !localTask.value.description.trim());
+const dueDateError = computed(() => !localTask.value.dueDate.trim());
 
 watch(currentTaskId, (newId) => {
   if (!newId) return;
@@ -41,9 +45,24 @@ defineProps({
 <template>
   <BaseModal :show="showEditModal">
     <div v-if="localTask" class="content">
-      <TextInput label="title" v-model:text="localTask.title" type="text" />
-      <TextInput label="description" v-model:text="localTask.description" type="text" />
-      <TextInput label="due date" v-model:text="localTask.dueDate" type="date" />
+      <TextInput
+        label="title"
+        v-model:text="localTask.title"
+        type="text"
+        :error="titleError"
+      />
+      <TextInput
+        label="description"
+        v-model:text="localTask.description"
+        type="text"
+        :error="descriptionError"
+      />
+      <TextInput
+        label="due date"
+        v-model:text="localTask.dueDate"
+        type="date"
+        :error="dueDateError"
+      />
     </div>
     <div class="button__group">
       <Button @click="handleEditTask" label="Save" />

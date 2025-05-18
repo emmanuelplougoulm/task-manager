@@ -4,7 +4,7 @@
     <div class="input__field">
       <input
         :id="inputId"
-        placeholder=""
+        placeholder="Type something"
         name="input"
         :class="[`input__input`, { error: error }]"
         :type="type"
