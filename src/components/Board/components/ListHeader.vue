@@ -1,39 +1,27 @@
+<script setup lang="ts">
+import type { TListHeaderProps } from '@/custom-types/types';
+
+const props = defineProps<TListHeaderProps>();
+const { listName } = props;
+</script>
+
 <template>
   <div class="list-header">
     <div class="list-name">{{ listName }}</div>
   </div>
 </template>
 
-<script setup lang="ts">
-const props = defineProps({
-  listName: String
-});
-
-const { listName } = props;
-</script>
-
 <style scoped>
 .list-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  color: var(--primary-color);
+  margin-bottom: 0.625rem;
+  color: white;
 }
 
 .list-name {
   text-align: left;
-  font-size: var(--list-name);
+  font-size: var(--font-size-body);
   font-weight: 800;
-}
-
-button {
-  padding: 4px;
-  font-size: var(--text-regular);
-  border-radius: var(--border-radius);
-  font-weight: 100;
-}
-button:hover {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
 }
 </style>

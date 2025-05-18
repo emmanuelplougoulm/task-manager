@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown" @click="toggleDropdown" @blur="closeDropdown">
     <div class="dropdown__input--selected">
-      {{ selectedOption || placeholder }}
+      {{ selectedOption.toLowerCase() || placeholder }}
       <BaseIcon class="dropdown__option__icon" iconName="arrow-down" />
     </div>
     <div v-if="isOpen" class="dropdown__options">
@@ -11,7 +11,7 @@
         :class="[`dropdown__option`]"
         @click.stop="selectOption(option.value)"
       >
-        {{ option.label }}
+        {{ option.label.toLowerCase() }}
       </div>
     </div>
   </div>
