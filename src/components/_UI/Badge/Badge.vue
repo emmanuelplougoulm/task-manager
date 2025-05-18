@@ -8,7 +8,7 @@
 import { defineProps } from 'vue';
 
 type TBadgeProps = {
-  color: 'success' | 'error' | 'todo' | 'inProgress' | 'done' | 'neutral';
+  color: 'success' | 'error' | 'pending' | 'inProgress' | 'done' | 'neutral';
   label: string;
 };
 
