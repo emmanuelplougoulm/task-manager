@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue';
+import { ref, toRefs, computed } from 'vue';
 import { BaseModal, TextInput, Button } from '@components/index';
 import { useTaskStore, useModalStore, useToastStore } from '@stores/index';
 
@@ -17,6 +17,10 @@ const localTask = ref({
   dueDate: ''
 });
 
+const titleError = computed(() => !localTask.value.title.trim());
+const descriptionError = computed(() => !localTask.value.description.trim());
+const dueDateError = computed(() => !localTask.value.dueDate.trim());
+
 function getTrimmedTask() {
   return {
     title: localTask.value.title.trim(),
@@ -27,6 +31,11 @@ function getTrimmedTask() {
 
 const handleAddTask = () => {
   const trimmedTask = getTrimmedTask();
+
+  if (!trimmedTask.title || !trimmedTask.description || !trimmedTask.dueDate) {
+    toast.show('All fields are required', 'error');
+    return;
+  }
 
   const success = addNewTask(trimmedTask);
   if (success) {
@@ -53,9 +62,24 @@ defineProps({
 <template>
   <BaseModal :show="showAddModal">
     <div class="content">
-      <TextInput label="title" v-model:text="localTask.title" type="text" />
-      <TextInput label="description" v-model:text="localTask.description" type="text" />
-      <TextInput label="due date" v-model:text="localTask.dueDate" type="date" />
+      <TextInput
+        label="title"
+        v-model:text="localTask.title"
+        type="text"
+        :error="titleError"
+      />
+      <TextInput
+        label="description"
+        v-model:text="localTask.description"
+        type="text"
+        :error="descriptionError"
+      />
+      <TextInput
+        label="due date"
+        v-model:text="localTask.dueDate"
+        type="date"
+        :error="dueDateError"
+      />
     </div>
     <div class="button__group">
       <Button label="Add new task" :onClick="handleAddTask" />
