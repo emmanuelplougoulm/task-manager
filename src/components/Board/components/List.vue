@@ -22,10 +22,11 @@ const filteredTasks = computed(() => {
   return filterTasksByStatus(tasks, listName as string);
 });
 
-function onDrop(event: { dataTransfer: { getData: (arg0: string) => any } }) {
-  const taskId = event.dataTransfer.getData('taskId');
-
-  editTaskStatus(taskId, listName as TTaskStatus);
+function onDrop(event: DragEvent) {
+  if (event.dataTransfer) {
+    const taskId = event.dataTransfer.getData('taskId');
+    editTaskStatus(taskId, listName as TTaskStatus);
+  }
 }
 </script>
 

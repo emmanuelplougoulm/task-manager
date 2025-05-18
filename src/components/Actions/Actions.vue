@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { useModalStore, useTaskStore } from '@stores';
+import { useModalStore, useTaskStore } from '@stores/index';
 import { Tabs, Button, Dropdown } from '@components/index';
 import { FILTER_OPTIONS, SORT_OPTIONS, ACTIONS_TABS } from '@constants/index';
 import type { TActionsProps } from '@/custom-types/types';

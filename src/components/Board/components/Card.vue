@@ -12,10 +12,10 @@ const { openEditModal } = modalStore;
 
 const emit = defineEmits(['dragging']);
 
-function onDragStart(event: {
-  dataTransfer: { setData: (arg0: string, arg1: string) => void };
-}) {
-  event.dataTransfer.setData('taskId', props.id);
+function onDragStart(event: DragEvent) {
+  if (event.dataTransfer) {
+    event.dataTransfer.setData('taskId', props.id);
+  }
   emit('dragging', props.id);
 }
 

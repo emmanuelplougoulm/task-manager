@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+
 import Tabs from './Tabs.vue';
 
 const meta: Meta<typeof Tabs> = {
@@ -7,7 +8,7 @@ const meta: Meta<typeof Tabs> = {
   tags: ['autodocs'],
   argTypes: {
     tabs: {
-      control: { type: 'array' },
+      control: { type: 'select' },
       defaultValue: ['list view', 'board view']
     }
   }
