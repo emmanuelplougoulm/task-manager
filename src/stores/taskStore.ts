@@ -1,15 +1,16 @@
-import { ref, computed, watch } from 'vue';
+import type { TSortDirection, TTask, TTaskStatus } from '@/custom-types/types';
+import { computed, ref, watch } from 'vue';
+import { filterTasksByStatus, sortTasksByDueDate } from '@/utils/format';
+import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '@/utils/localStorage';
+
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
-import type { TTask, TTaskStatus, TSortDirection } from '@/custom-types/types';
-import { saveTasksToLocalStorage, loadTasksFromLocalStorage } from '@/utils/localStorage';
-import { filterTasksByStatus, sortTasksByDueDate } from '@/utils/format';
 
 export const useTaskStore = defineStore('task', () => {
   const defaultTasks: TTask[] | [] = [];
 
   /* REFS */
-  const filterStatus = ref(null);
+  const filterStatus = ref('all');
   const sortOrder = ref<TSortDirection>('asc');
 
   const tasks = ref<TTask[]>(
@@ -19,7 +20,6 @@ export const useTaskStore = defineStore('task', () => {
   /* COMPUTED */
   const hasTask = computed(() => tasks.value.length > 0);
 
-  /* TODO split in 2 functions */
   const filteredTasks = computed(() => {
     const filtered = filterTasksByStatus(tasks.value, filterStatus.value);
     return sortTasksByDueDate(filtered, sortOrder.value);
@@ -45,7 +45,7 @@ export const useTaskStore = defineStore('task', () => {
         title: task.title,
         description: task.description,
         dueDate: task.dueDate,
-        status: 'todo' as TTaskStatus
+        status: 'pending' as TTaskStatus
       };
 
       tasks.value.push(newTask);
@@ -68,8 +68,6 @@ export const useTaskStore = defineStore('task', () => {
     }
   };
   const editTaskStatus = (id: string, status: TTaskStatus): void => {
-    // console.log('id', id);
-    // console.log('status', status);
     const task = tasks.value.find((task) => task.id === id);
 
     if (task) {
@@ -114,6 +112,7 @@ export const useTaskStore = defineStore('task', () => {
     addNewTask,
     deleteTask,
     getTaskById,
-    editTask
+    editTask,
+    editTaskStatus
   };
 });
