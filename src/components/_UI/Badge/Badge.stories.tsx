@@ -9,7 +9,7 @@ const meta: Meta<typeof Badge> = {
   argTypes: {
     color: {
       control: { type: 'select' },
-      options: ['success', 'error', 'todo', 'inProgress', 'done', 'neutral'],
+      options: ['success', 'error', 'pending', 'inProgress', 'done', 'neutral'],
       defaultValue: 'neutral'
     },
     label: {
@@ -45,8 +45,8 @@ export const Error: Story = {
 
 export const Todo: Story = {
   args: {
-    color: 'todo',
-    label: 'Todo'
+    color: 'pending',
+    label: 'pending'
   }
 };
 
