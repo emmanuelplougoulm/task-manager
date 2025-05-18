@@ -3,7 +3,7 @@
     <Tabs :tabs="defaultTabs" v-model="modelValue" />
     <div class="home__actions__spacer"></div>
 
-    <div class="home__actions__cta">
+    <div v-if="showTable" class="home__actions__cta">
       <Dropdown v-model="sortOrder" :options="SORT_OPTIONS" placeholder="Sort" />
       <Dropdown v-model="filterStatus" :options="FILTER_OPTIONS" placeholder="Filter" />
 
@@ -16,6 +16,7 @@
 import { toRefs } from 'vue';
 import { useModalStore, useTaskStore } from '@/stores';
 import { Tabs, Button, Dropdown } from '@components/index';
+import { FILTER_OPTIONS, SORT_OPTIONS } from '@constants/index';
 
 const taskStore = useTaskStore();
 const { filterStatus, sortOrder } = toRefs(taskStore);
@@ -25,18 +26,10 @@ const { showAddModal } = toRefs(modalStore);
 
 const defaultTabs = ['list view', 'board view'];
 
+defineProps<{
+  showTable: boolean;
+}>();
 const modelValue = defineModel<number>({ default: 0 });
-
-const FILTER_OPTIONS = [
-  { label: 'all', value: 'all' },
-  { label: 'todo', value: 'todo' },
-  { label: 'pending', value: 'pending' },
-  { label: 'done', value: 'done' }
-];
-const SORT_OPTIONS = [
-  { label: 'asc', value: 'asc' },
-  { label: 'desc', value: 'desc' }
-];
 </script>
 
 <style>

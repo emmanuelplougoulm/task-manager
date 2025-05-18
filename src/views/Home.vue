@@ -12,17 +12,8 @@ const setActiveTab = (index: number): void => {
 </script>
 
 <template>
-  <main>
-    <header>
-      <img :src="Logo" class="logo" />
-    </header>
-    <div class="content">
-      <Tabs :tabs="defaultTabs">
-        <template #tab-0>
-          <TaskTable />
-        </template>
-        <template #tab-1> <Board /> </template>
-      </Tabs>
+      <Actions v-model="activeTab" :showTable="showTable" />
+      <Table v-if="showTable" :hasTask="hasTask" :filteredTasks="filteredTasks" />
     </div>
   </main>
 </template>
