@@ -2,13 +2,8 @@
   /* COLORS*/
   --color-primary: #2b1732;
   --color-primary-bg: #c3a4cd;
-  /* --color-primary-hover-bg: #3730a3;
-  --color-primary-focus-bg: #3730a3; */
   --color-primary-text: #2d0f37;
-
   --color-secondary-bg: #fcb069;
-  /* --color-secondary-hover-bg: #fafafa;
-  --color-secondary-focus-bg: #fafafa; */
   --color-secondary-text: #fa9f4b;
   --color-neutral: #b5b4b2;
 
@@ -16,6 +11,9 @@
   --font-family: 'Roboto', system-ui, sans-serif;
   --font-weight: 400;
   --font-size-body: 14px;
+
+  /* BORDER RADIUS */
+  --border-radius-sm: 4px;
 }
 
 @media (max-width: 600px) {
