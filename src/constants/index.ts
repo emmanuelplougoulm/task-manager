@@ -1,4 +1,6 @@
-export const BOARD_LISTS = ['pending', 'inProgress', 'done'];
+import type { TTaskStatus } from '@/custom-types/types';
+
+export const BOARD_LISTS: TTaskStatus[] = ['pending', 'inProgress', 'done'];
 
 export const STATUSES = ['all', 'pending', 'inProgress', 'done'];
 

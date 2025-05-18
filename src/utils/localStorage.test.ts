@@ -1,5 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { saveTasksToLocalStorage, loadTasksFromLocalStorage } from './localStorage';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from './localStorage';
+
+import type { TTask } from '@/custom-types/types';
 
 describe('LocalStorage Task Functions', () => {
   beforeEach(() => {
@@ -8,13 +10,13 @@ describe('LocalStorage Task Functions', () => {
   });
 
   it('should save tasks to localStorage', () => {
-    const tasks = [
+    const tasks: TTask[] = [
       {
         id: '1',
         title: 'Test Task',
         description: 'Desc',
         dueDate: '2025-05-17',
-        status: 'todo'
+        status: 'pending'
       }
     ];
     saveTasksToLocalStorage(tasks);
