@@ -75,6 +75,15 @@ export const useTaskStore = defineStore('task', () => {
       return false;
     }
   };
+  const editTaskStatus = (id: string, status: TTaskStatus): void => {
+    // console.log('id', id);
+    // console.log('status', status);
+    const task = tasks.value.find((task) => task.id === id);
+
+    if (task) {
+      task.status = status;
+    }
+  };
 
   const deleteTask = (id: string): boolean => {
     try {
