@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+import type { TTextInputProps } from '@/custom-types/types';
+
+const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
+
+const text = defineModel<string>('text');
+const { label } = defineProps<TTextInputProps>();
+</script>
+
 <template>
   <div class="input">
     <label class="input__label" for="inputId">{{ label }}</label>
@@ -12,27 +21,8 @@
         :aria-invalid="error ? 'true' : 'false'"
       />
     </div>
-
-    <p v-if="hint" role="status" :class="[`input__hint`, { error: error }]">
-      {{ hint }}
-    </p>
   </div>
 </template>
-
-<script lang="ts" setup>
-const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
-
-type TTextInputProps = {
-  label: string;
-  hint?: string;
-  error?: boolean;
-  type: string;
-};
-
-const text = defineModel<string>('text');
-
-const { label } = defineProps<TTextInputProps>();
-</script>
 
 <style>
 /* VARIABLES */
@@ -85,8 +75,8 @@ const { label } = defineProps<TTextInputProps>();
 
 .input__input {
   width: 100%;
-  padding: 9px 13px;
-  padding-right: 37px;
+  padding: 0.5625rem 0.8125rem;
+  padding-right: 2.3125rem;
   outline: none;
   border: 1px solid var(--color-border);
   background: var(--color-background);
@@ -114,60 +104,13 @@ const { label } = defineProps<TTextInputProps>();
 }
 
 /* ERROR STATE */
+.input__input.error {
+  border: 1px red solid;
+}
+
 .input__input.error:focus {
   box-shadow:
     0 0 0 1px var(--color-error),
     0 0 0 4px var(--color-error-shadow);
-}
-
-/* DISABLED STATE */
-.input__input:disabled {
-  border: 1px solid var(--color-border-disabled);
-  color: var(--color-placeholder-disabled);
-  pointer-events: none;
-}
-
-.input__input:disabled::placeholder {
-  color: var(--color-placeholder-disabled);
-}
-
-/*ICONS*/
-.input__input--left-padding {
-  padding-left: 41px;
-}
-
-.input__icon {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  pointer-events: none;
-  color: var(--color-icon);
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-}
-
-.input__icon--left {
-  top: 12px;
-  left: 14px;
-}
-
-.input__icon--right {
-  top: 12px;
-  right: 14px;
-}
-
-.input__icon--right.error {
-  color: var(--color-error);
-}
-
-/*HINTS*/
-.input__hint {
-  font-size: 12px;
-  color: var(--color-label);
-}
-
-.input__hint.error {
-  color: var(--color-error);
 }
 </style>
