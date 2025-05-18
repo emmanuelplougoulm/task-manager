@@ -3,14 +3,13 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import HomeHeader from './Header.vue';
 
 const meta: Meta<typeof HomeHeader> = {
-  title: 'Components/HomeHeader',
+  title: 'Components/Header',
   component: HomeHeader,
   tags: ['autodocs'],
   argTypes: {
     title: {
       control: { type: 'text' },
-      defaultValue: 'Bienvenue sur MangoPay',
-      description: 'Titre affiché à côté du logo'
+      defaultValue: 'Welcome to task master by'
     }
   }
 };
@@ -20,6 +19,6 @@ type Story = StoryObj<typeof HomeHeader>;
 
 export const Default: Story = {
   args: {
-    title: 'Bienvenue sur MangoPay'
+    title: 'Welcome to task master by'
   }
 };
