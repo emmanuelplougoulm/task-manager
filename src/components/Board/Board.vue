@@ -12,6 +12,7 @@ import { BOARD_LISTS } from '@constants/index';
 
 <style scoped>
 .board {
+  border: 1px blue solid;
   border-radius: 0.5rem;
   height: 100%;
   padding: 16px;

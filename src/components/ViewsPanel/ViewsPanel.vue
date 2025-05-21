@@ -22,9 +22,20 @@ const modelValue = defineModel<number>({ default: 0 });
 
 <template>
   <div class="home__actions">
-    <Tabs :tabs="ACTIONS_TABS" v-model="modelValue" />
-    <div class="home__actions__spacer"></div>
+    <Button
+      label="List"
+      :onClick="() => (showAddModal = true)"
+    />
+    <Button
+      label="Board"
+      :onClick="() => (showAddModal = true)"
+    />
 
+    <div class="home__actions__spacer"></div>
+    <Button
+      label="Create new task"
+      :onClick="() => (showAddModal = true)"
+    />
     <!-- <div class="home__actions__cta">
       <Dropdown
         v-if="showTable"

@@ -22,25 +22,21 @@ const modelValue = defineModel<number>({ default: 0 });
 
 <template>
   <div class="home__actions">
-    <Tabs :tabs="ACTIONS_TABS" v-model="modelValue" />
-    <div class="home__actions__spacer"></div>
+    <input type="text" placeholder="search a task" />
 
-    <!-- <div class="home__actions__cta">
+    <div class="home__actions__spacer"></div>
+    <div class="home__actions__cta">
       <Dropdown
-        v-if="showTable"
         v-model="sortOrder"
         :options="SORT_OPTIONS"
         placeholder="Sort"
       />
       <Dropdown
-        v-if="showTable"
         v-model="filterStatus"
         :options="FILTER_OPTIONS"
         placeholder="Filter"
-      /> -->
-
-    <!-- <Button label="Add new task" :onClick="() => (showAddModal = true)" /> -->
-    <!-- </div> -->
+      />
+    </div>
   </div>
 </template>
 

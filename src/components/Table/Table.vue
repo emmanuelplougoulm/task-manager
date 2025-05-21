@@ -38,6 +38,7 @@ defineProps<{
 
 <style scoped>
 table {
+  border: 1px blue solid;
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
