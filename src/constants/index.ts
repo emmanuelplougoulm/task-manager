@@ -17,3 +17,4 @@ export const SORT_OPTIONS = [
 
 export const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
 export const ACTIONS_TABS = ['list view', 'board view'];
+export const VIEWS = ['LIST', 'BOARD'];

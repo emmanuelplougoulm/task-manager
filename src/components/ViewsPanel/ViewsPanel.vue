@@ -3,11 +3,7 @@
 import { toRefs } from 'vue';
 import { useModalStore, useTaskStore } from '@stores/index';
 import { Tabs, Button, Dropdown } from '@components/index';
-import {
-  FILTER_OPTIONS,
-  SORT_OPTIONS,
-  ACTIONS_TABS
-} from '@constants/index';
+import { VIEWS } from '@constants/index';
 import type { TActionsProps } from '@/custom-types/types';
 
 const taskStore = useTaskStore();
@@ -21,48 +17,27 @@ const modelValue = defineModel<number>({ default: 0 });
 </script>
 
 <template>
-  <div class="home__actions">
+  <div class="views-panel">
     <Button
-      label="List"
+      v-for="view in VIEWS"
+      :label="view"
+      :key="view"
       :onClick="() => (showAddModal = true)"
     />
-    <Button
-      label="Board"
-      :onClick="() => (showAddModal = true)"
-    />
-
     <div class="home__actions__spacer"></div>
-    <Button
-      label="Create new task"
-      :onClick="() => (showAddModal = true)"
-    />
-    <!-- <div class="home__actions__cta">
-      <Dropdown
-        v-if="showTable"
-        v-model="sortOrder"
-        :options="SORT_OPTIONS"
-        placeholder="Sort"
-      />
-      <Dropdown
-        v-if="showTable"
-        v-model="filterStatus"
-        :options="FILTER_OPTIONS"
-        placeholder="Filter"
-      /> -->
-
-    <!-- <Button label="Add new task" :onClick="() => (showAddModal = true)" /> -->
-    <!-- </div> -->
+    <Button label="Create new task" :onClick="() => (showAddModal = true)" />
   </div>
 </template>
 
 <style>
-.home__actions {
-  /* border: 1px blue solid; */
+.views-panel {
+  border: 1px blue solid;
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  height: 2.625rem;
-  padding: 20px;
+  height: 60px;
+  /* padding: 20px; */
+  border-bottom: 1px white solid;
 }
 
 .home__actions__spacer {
