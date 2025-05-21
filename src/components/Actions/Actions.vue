@@ -3,7 +3,11 @@
 import { toRefs } from 'vue';
 import { useModalStore, useTaskStore } from '@stores/index';
 import { Tabs, Button, Dropdown } from '@components/index';
-import { FILTER_OPTIONS, SORT_OPTIONS, ACTIONS_TABS } from '@constants/index';
+import {
+  FILTER_OPTIONS,
+  SORT_OPTIONS,
+  ACTIONS_TABS
+} from '@constants/index';
 import type { TActionsProps } from '@/custom-types/types';
 
 const taskStore = useTaskStore();
@@ -21,7 +25,7 @@ const modelValue = defineModel<number>({ default: 0 });
     <Tabs :tabs="ACTIONS_TABS" v-model="modelValue" />
     <div class="home__actions__spacer"></div>
 
-    <div class="home__actions__cta">
+    <!-- <div class="home__actions__cta">
       <Dropdown
         v-if="showTable"
         v-model="sortOrder"
@@ -33,19 +37,21 @@ const modelValue = defineModel<number>({ default: 0 });
         v-model="filterStatus"
         :options="FILTER_OPTIONS"
         placeholder="Filter"
-      />
+      /> -->
 
-      <Button label="Add new task" :onClick="() => (showAddModal = true)" />
-    </div>
+    <!-- <Button label="Add new task" :onClick="() => (showAddModal = true)" /> -->
+    <!-- </div> -->
   </div>
 </template>
 
 <style>
 .home__actions {
+  /* border: 1px blue solid; */
   display: flex;
   align-items: center;
   gap: 0.625rem;
   height: 2.625rem;
+  padding: 20px;
 }
 
 .home__actions__spacer {
