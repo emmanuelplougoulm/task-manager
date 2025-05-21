@@ -29,8 +29,8 @@ const isCardOpen = ref(false);
 
 <template>
   <main class="home">
-    <Header title="Welcome to task master by" />
-    <div class="home__content">
+    <Header />
+    <!-- <div class="home__content">
       <div class="home__left-panel">
         <ViewsPanel />
         <FilterPanel />
