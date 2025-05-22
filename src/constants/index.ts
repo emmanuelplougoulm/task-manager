@@ -1,6 +1,6 @@
-import type { TTaskStatus } from '@/custom-types/types';
+import type { TTaskStatus } from '@/types';
 
-export const BOARD_LISTS: TTaskStatus[] = ['pending', 'inProgress', 'done'];
+export const BOARD_LISTS: TTaskStatus[] = ['pending', 'inProgress', 'review', 'done'];
 
 export const STATUSES = ['all', 'pending', 'inProgress', 'done'];
 
@@ -17,4 +17,5 @@ export const SORT_OPTIONS = [
 
 export const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
 export const ACTIONS_TABS = ['list view', 'board view'];
+
 export const VIEWS = ['LIST', 'BOARD'];
