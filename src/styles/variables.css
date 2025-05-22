@@ -14,10 +14,15 @@
 
   /* BORDER RADIUS */
   --border-radius-sm: 4px;
+
+  /* HEIGHT */
+  /* --filter-or-view-panel-height: 60px; */
+
+  --glassmorphism-panel-bg: rgba(255, 255, 255, 0.15);
 }
 
 @media (max-width: 600px) {
-  :root {
+  /* :root {
     --font-size-body: 10px;
-  }
+  } */
 }
