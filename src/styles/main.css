@@ -1,0 +1,27 @@
+@import '@styles/base.css';
+@import '@styles/variables.css';
+
+#app {
+  padding: 2rem;
+  height: 100%;
+  font-size: 16px;
+  /* background-image: linear-gradient(
+    to left bottom,
+    #051937,
+    #142140,
+    #202848,
+    #2c3151,
+    #38395a
+  ); */
+
+  background-image: linear-gradient(
+    to bottom,
+    #051937,
+    #142140,
+    #202848,
+    #2c3151,
+    #38395a
+  );
+
+  /* background-color: #0f0c2b; */
+}
