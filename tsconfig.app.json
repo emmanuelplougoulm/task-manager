@@ -7,14 +7,17 @@
 
     "paths": {
       "@/*": ["./src/*"],
+      "@UI/*": ["./src/_UI/*"],
       "@assets/*": ["./src/assets/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@components/*": ["./src/components/*"],
       "@composables/*": ["./src/composables/*"],
+      "@constants/*": ["./src/constants/*"],
       "@icons/*": ["./src/assets/icons/*"],
+      "@layout/*": ["./src/layout/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@pages/*": ["./src/pages/*"],
       "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/assets/styles/*"],
-      "@views/*": ["./src/views/*"]
+      "@types/*": ["./src/types/*"]
     }
   }
 }
