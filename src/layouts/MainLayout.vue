@@ -1,8 +1,7 @@
-<!-- src/layouts/MainLayout.vue -->
 <template>
   <div class="main-layout">
-    <Navbar />
-    <Sidebar />
+    <!-- <Navbar />
+    <Sidebar /> -->
     <main>
       <slot />
       <!-- use it to place your page content  -->

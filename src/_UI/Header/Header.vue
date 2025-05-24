@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HeaderInfo from './components/HeaderInfo.vue';
+import HeaderInfo from '../../modules/project/components/ProjectInfo.vue';
 import { Button } from '@/_UI/index';
 </script>
 

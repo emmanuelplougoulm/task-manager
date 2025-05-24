@@ -1,10 +1,15 @@
 <script lang="ts" setup>
-import type { TTextInputProps } from '@/types';
+interface TextInputProps {
+  label: string;
+  error: boolean;
+  type: string;
+}
 
+/*TODO: move to utils*/
 const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
 
 const text = defineModel<string>('text');
-const { label } = defineProps<TTextInputProps>();
+const { label } = defineProps<TextInputProps>();
 </script>
 
 <template>
