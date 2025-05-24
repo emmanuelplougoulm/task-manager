@@ -1,5 +1,4 @@
 import { useModalStore } from '@stores/modalStore';
-import { useTaskStore } from '@stores/taskStore';
-import { useToastStore } from '@stores/toastStore';
+import { useToastStore } from '@/modules/notification/store/toastStore';
 
-export { useModalStore, useTaskStore, useToastStore };
+export { useModalStore, useToastStore };
