@@ -1,4 +1,4 @@
-import type { TTask } from '@/custom-types/types';
+import type { TTask } from '@/types';
 
 const TASKS_STORAGE_KEY: string = 'tasks';
 

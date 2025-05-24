@@ -1,4 +1,4 @@
-import type { TSortDirection, TTask } from '@/custom-types/types';
+import type { TSortDirection, TTask } from '@/types';
 
 const filterTasksByStatus = (tasks: TTask[], status: string | null): TTask[] => {
   if (status === 'all') return tasks;

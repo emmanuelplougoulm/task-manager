@@ -1,33 +1,42 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { ref, computed, toRefs } from 'vue';
-import { Table, Board, Header, Actions } from '@components/index';
-import { useTaskStore } from '@/stores';
-import { useViewportWidth } from '@composables/index';
+import { Header, Table, Board, CardDetails } from '@/_UI/index';
+import ViewsPanel from '@components/ViewsPanel/ViewsPanel.vue';
+import FilterPanel from '@components/FilterPanel/FilterPanel.vue';
+// import CardDetails from '@components/CardDetails/CardDetails.vue';
+import { useTaskStore, useNavigationStore } from '@/stores';
+// import { useViewportWidth } from '@composables/index';
 
 const taskStore = useTaskStore();
 const { hasTask, filteredTasks } = toRefs(taskStore);
 
-const activeTab = ref(0);
-const showTable = computed(() => activeTab.value === 0);
+const navigationStore = useNavigationStore();
+const showTable = computed(() => navigationStore.activeView === 'LIST');
+// console.log('navigationStore', navigationStore);
 
-const { width } = useViewportWidth();
-const isReadable = computed(() => width.value > 400);
+// const activeTab = ref(0);
+
+// const isCardOpen = ref(false);
+const isCardOpen = computed(() => taskStore.currentTaskId);
+
+// const { width } = useViewportWidth();
+// const isReadable = computed(() => width.value > 400);
 </script>
 
 <template>
   <main class="home">
-    <Header title="Welcome to task master by" />
-    <div v-if="isReadable" class="home__content">
-      <Actions v-model="activeTab" :showTable="showTable" />
-      <Table v-if="showTable" :hasTask="hasTask" :filteredTasks="filteredTasks" />
-      <Board v-else />
-    </div>
-    <div class="home__warning_message" v-else>
-      <p>
-        Oh snap ! It looks like you're screen is very small<br />We recommend you switch
-        to desktop
-      </p>
+    <Header />
+    <div class="home__content">
+      <div class="home__left-panel">
+        <ViewsPanel />
+        <FilterPanel />
+        <Table v-if="showTable" :hasTask="hasTask" :filteredTasks="filteredTasks" />
+        <Board v-else />
+      </div>
+      <div class="home__right-panel">
+        <CardDetails :show="isCardOpen" />
+      </div>
     </div>
   </main>
 </template>
@@ -38,38 +47,48 @@ const isReadable = computed(() => width.value > 400);
 }
 
 .home {
+  /* border: 1px red solid; */
   font-family: var(--font-family);
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 10px;
   height: 100%;
 }
 
 .home__content {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: white;
-  border-radius: 8px;
-
-  padding: 10px;
+  gap: 5px;
   height: 100%;
 }
 
-.home__warning_message {
+.home__left-panel {
+  padding: 12px;
+  flex-grow: 1;
+  height: 100%;
+  border-radius: 8px;
+  background-color: var(--glassmorphism-panel-bg);
+}
+
+.home__right-panel {
+  /* width: 300px; */
+  /* border: 1px red solid; */
+  background-color: var(--glassmorphism-panel-bg);
+}
+
+/* .home__warning_message {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   background-color: var(--color-secondary-bg);
   height: 100%;
-}
+} */
 
-.home__warning_message p {
+/* .home__warning_message p {
   text-align: center;
   font-family: var(--font-family);
   color: var(--color-primary);
   font-size: 18px;
   font-weight: 600;
-}
+} */
 </style>

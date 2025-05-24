@@ -1,7 +1,6 @@
-import type { TTaskStatus } from '@/custom-types/types';
+// import type { TTaskStatus } from '@/types';
 
-export const BOARD_LISTS: TTaskStatus[] = ['pending', 'inProgress', 'done'];
-
+export const BOARD_LISTS = ['PENDING', 'IN_PROGRESS', 'REVIEW', 'DONE'];
 export const STATUSES = ['all', 'pending', 'inProgress', 'done'];
 
 export const FILTER_OPTIONS = [
@@ -17,3 +16,5 @@ export const SORT_OPTIONS = [
 
 export const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
 export const ACTIONS_TABS = ['list view', 'board view'];
+
+export const PROJECT_BOARDS = ['TABLE_BOARD', 'KANBAN_BOARD'];

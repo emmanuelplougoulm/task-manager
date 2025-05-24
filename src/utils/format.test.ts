@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { filterTasksByStatus, sortTasksByDueDate } from '@/utils/format';
 
-import type { TTask } from '@/custom-types/types';
+import type { TTask } from '@/types';
 
 const mockTasks: TTask[] = [
   {

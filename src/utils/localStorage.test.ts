@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from './localStorage';
 
-import type { TTask } from '@/custom-types/types';
+import type { TTask } from '@/types';
 
 describe('LocalStorage Task Functions', () => {
   beforeEach(() => {
