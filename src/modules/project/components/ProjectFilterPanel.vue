@@ -1,12 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { useModalStore, useTaskStore } from '@stores/index';
+// import { useModalStore, useTaskStore } from '@stores/index';
 import { Dropdown } from '@/_UI/index';
 import { FILTER_OPTIONS, SORT_OPTIONS } from '@constants/index';
 
-const taskStore = useTaskStore();
-const { filterStatus, sortOrder } = toRefs(taskStore);
+// const taskStore = useTaskStore();
+// const { filterStatus, sortOrder } = toRefs(taskStore);
 
 // const modalStore = useModalStore();
 // const { showAddModal } = toRefs(modalStore);
@@ -18,8 +18,8 @@ const { filterStatus, sortOrder } = toRefs(taskStore);
 
     <div class="filter-panel__spacer"></div>
     <div class="filter-panel__cta">
-      <Dropdown v-model="sortOrder" :options="SORT_OPTIONS" placeholder="Sort" />
-      <Dropdown v-model="filterStatus" :options="FILTER_OPTIONS" placeholder="Filter" />
+      <!-- <Dropdown v-model="sortOrder" :options="SORT_OPTIONS" placeholder="Sort" />
+      <Dropdown v-model="filterStatus" :options="FILTER_OPTIONS" placeholder="Filter" /> -->
     </div>
   </div>
 </template>
