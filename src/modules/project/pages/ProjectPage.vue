@@ -3,14 +3,22 @@ import { computed } from 'vue';
 import ProjectInfoPanel from '../components/ProjectInfoPanel.vue';
 import ProjectBoardPanel from '../components/ProjectBoardPanel.vue';
 import ProjectFilterPanel from '../components/ProjectFilterPanel.vue';
-// import AddTaskCard from '../components/AddTaskCard.vue';
 import TableBoard from '../components/TableBoard/TableBoard.vue';
 import KanbanBoard from '../components/KanbanBoard/KanbanBoard.vue';
 
+import CreateTaskCard from '../components/Cards/CreateTaskCard.vue';
+import EditTaskCard from '../components/Cards//EditTaskCard.vue';
+
+import { useCardPanel } from '@composables/useCardPanel';
+
 import { useProjectStore } from '../store/useProjectStore';
+import { useUIStore } from '@stores/useUIStore';
+
+const { closePanel } = useCardPanel();
 
 const projectStore = useProjectStore();
-// const { showRightPanel } = toRef(projectStore);
+const uiStore = useUIStore();
+
 const showTable = computed(() => projectStore.activeBoard === 'TABLE_BOARD');
 </script>
 
@@ -25,13 +33,13 @@ const showTable = computed(() => projectStore.activeBoard === 'TABLE_BOARD');
         <TableBoard v-if="showTable" :has-task="true" />
         <KanbanBoard v-else />
       </div>
-      <div
-        class="project-page__right-panel"
-        :class="[{ show: projectStore.showRightPanel }]"
-      >
-        <!-- <AddTaskCard :show="isCardOpen" /> -->
-        <div @click="() => (projectStore.showRightPanel = false)">Close</div>
-        <!-- <CardDetails :show="isCardOpen" /> -->
+      <div class="project-page__right-panel" :class="[{ show: uiStore.rightPanel.open }]">
+        <CreateTaskCard
+          :show="uiStore.rightPanel.mode == 'create'"
+          :cancel="closePanel"
+        />
+
+        <EditTaskCard :show="uiStore.rightPanel.mode == 'edit'" />
       </div>
     </div>
   </main>
