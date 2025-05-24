@@ -1,18 +1,19 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useTaskStore } from '@stores/index';
+// import { useTaskStore } from '@stores/index';
 
 type TCardDetailProps = {
   show: boolean;
+  cancel: () => void;
 };
 
 const localTask = ref();
 
-const taskStore = useTaskStore();
-const { getTaskById, editTask, currentTaskId } = taskStore;
+// const taskStore = useTaskStore();
+// const { getTaskById, editTask, currentTaskId } = taskStore;
 
-console.log('currentTaskId', currentTaskId);
+// console.log('currentTaskId', currentTaskId);
 
 // watch(currentTaskId, (newId) => {
 //   if (!newId) return;
@@ -28,11 +29,14 @@ defineProps<TCardDetailProps>();
 
 <template>
   <div :class="['card-details', { show: show }]">
-    <div v-if="localTask" class="content">
+    I am the create card
+
+    <div @click="cancel">Close</div>
+    <!-- <div v-if="localTask" class="content">
       <TextInput label="title" v-model:text="localTask.title" type="text" />
       <TextInput label="description" v-model:text="localTask.description" type="text" />
       <TextInput label="due date" v-model:text="localTask.dueDate" type="date" />
-    </div>
+    </div> -->
   </div>
 </template>
 
