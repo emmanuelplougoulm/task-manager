@@ -5,7 +5,6 @@ import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from '@/utils/loca
 
 import { PROJECT_BOARDS } from '@constants/index';
 import { defineStore } from 'pinia';
-import { v4 as uuidv4 } from 'uuid';
 
 export const useProjectStore = defineStore('project', () => {
   const defaultTasks: TTask[] | [] = [];
