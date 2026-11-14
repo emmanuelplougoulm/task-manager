@@ -25,6 +25,6 @@ watchEffect(async () => {
 .base__icon {
   width: 25px;
   height: 25px;
-  color: black;
+  color: inherit;
 }
 </style>
