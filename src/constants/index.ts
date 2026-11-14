@@ -1,20 +1,26 @@
-// import type { TTaskStatus } from '@/types';
+import type { TBoard, TSortDirection, TStatusFilter, TTaskStatus } from '@/types';
 
-export const BOARD_LISTS = ['PENDING', 'IN_PROGRESS', 'REVIEW', 'DONE'];
-export const STATUSES = ['all', 'pending', 'inProgress', 'done'];
+export const TASK_STATUSES: TTaskStatus[] = ['pending', 'inProgress', 'done'];
 
-export const FILTER_OPTIONS = [
-  { label: 'all', value: 'all' },
-  { label: 'pending', value: 'pending' },
-  { label: 'progress', value: 'inProgress' },
-  { label: 'done', value: 'done' }
+export const STATUS_LABELS: Record<TTaskStatus, string> = {
+  pending: 'To do',
+  inProgress: 'In progress',
+  done: 'Done'
+};
+
+export const FILTER_OPTIONS: { label: string; value: TStatusFilter }[] = [
+  { label: 'All statuses', value: 'all' },
+  ...TASK_STATUSES.map((status) => ({ label: STATUS_LABELS[status], value: status }))
 ];
-export const SORT_OPTIONS = [
-  { label: 'asc', value: 'asc' },
-  { label: 'desc', value: 'desc' }
+
+export const SORT_OPTIONS: { label: string; value: TSortDirection }[] = [
+  { label: 'Due date ↑', value: 'asc' },
+  { label: 'Due date ↓', value: 'desc' }
 ];
 
-export const TABLE_HEAD = ['title', 'description', 'status', 'due date', 'actions'];
-export const ACTIONS_TABS = ['list view', 'board view'];
+export const TABLE_HEAD = ['Title', 'Description', 'Status', 'Due date', 'Actions'];
 
-export const PROJECT_BOARDS = ['TABLE_BOARD', 'KANBAN_BOARD'];
+export const BOARDS: { label: string; value: TBoard }[] = [
+  { label: 'Table', value: 'table' },
+  { label: 'Board', value: 'kanban' }
+];

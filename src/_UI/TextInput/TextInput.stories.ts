@@ -10,7 +10,7 @@ const meta: Meta<typeof TextInput> = {
     label: { control: 'text' },
     text: { control: 'text' },
     type: { control: 'text', defaultValue: 'text' },
-    error: { control: 'boolean', defaultValue: false }
+    error: { control: 'text' }
   }
 };
 
@@ -23,7 +23,7 @@ export const Default: Story = {
     label: 'Username',
     text: '',
     type: 'text',
-    error: false
+    error: ''
   }
 };
 
@@ -32,7 +32,7 @@ export const WithError: Story = {
     label: 'Email',
     text: '',
     type: 'email',
-    error: true
+    error: 'This field is required'
   }
 };
 
@@ -41,6 +41,6 @@ export const Password: Story = {
     label: 'Password',
     text: '',
     type: 'password',
-    error: false
+    error: ''
   }
 };

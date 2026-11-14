@@ -1,17 +1,3 @@
-export type TaskStatus = 'todo' | 'in_progress' | 'review' | 'done';
-
-export interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  status: TaskStatus;
-  assigneeId?: string;
-  sprintId?: string;
-  dueDate?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export type TTaskStatus = 'pending' | 'inProgress' | 'done';
 
 export type TTask = {
@@ -22,27 +8,10 @@ export type TTask = {
   dueDate: string;
 };
 
-// export type TActionsProps = {
-//   showTable: boolean;
-// };
-
-export type TListHeaderProps = {
-  listName: string;
-};
-
-export type TCardProps = {
-  title: string;
-  description: string;
-  dueDate: string;
-  id: string;
-};
+export type TTaskInput = Pick<TTask, 'title' | 'description' | 'dueDate'>;
 
 export type TSortDirection = 'asc' | 'desc';
 
-export type TRowProps = {
-  title: string;
-  description: string;
-  status: string;
-  dueDate: string;
-  id: string;
-};
+export type TStatusFilter = TTaskStatus | 'all';
+
+export type TBoard = 'table' | 'kanban';

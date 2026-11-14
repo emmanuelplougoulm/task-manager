@@ -1,31 +1,35 @@
 <script lang="ts" setup>
+import { useId } from 'vue';
+
 interface TextInputProps {
   label: string;
-  error: boolean;
-  type: string;
+  type?: string;
+  error?: string;
+  placeholder?: string;
 }
 
-/*TODO: move to utils*/
-const inputId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const { label, type = 'text', error = '', placeholder = '' } = defineProps<TextInputProps>();
 
 const text = defineModel<string>('text');
-const { label } = defineProps<TextInputProps>();
+const inputId = useId();
+const errorId = `${inputId}-error`;
 </script>
 
 <template>
   <div class="input">
-    <label class="input__label" for="inputId">{{ label }}</label>
+    <label class="input__label" :for="inputId">{{ label }}</label>
     <div class="input__field">
       <input
         :id="inputId"
-        placeholder="Type something"
-        name="input"
-        :class="[`input__input`, { error: error }]"
+        :placeholder="placeholder"
+        :class="[`input__input`, { error: !!error }]"
         :type="type"
         v-model="text"
         :aria-invalid="error ? 'true' : 'false'"
+        :aria-describedby="error ? errorId : undefined"
       />
     </div>
+    <p v-if="error" :id="errorId" class="input__error">{{ error }}</p>
   </div>
 </template>
 
@@ -66,8 +70,7 @@ const { label } = defineProps<TextInputProps>();
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
-  color: var(--color-label);
-  text-transform: capitalize;
+  color: inherit;
 }
 
 /* FIELD WRAPPER  */
@@ -106,6 +109,12 @@ const { label } = defineProps<TextInputProps>();
     0 0 0 1px var(--color-focus),
     0 1px 2px rgba(16, 24, 40, 0.05),
     0 0 0 4px var(--color-focus-shadow);
+}
+
+.input__error {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffb4ab;
 }
 
 /* ERROR STATE */

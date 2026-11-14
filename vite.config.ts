@@ -1,4 +1,5 @@
 import { URL, fileURLToPath } from 'node:url';
+import process from 'node:process';
 
 import { defineConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
@@ -6,6 +7,8 @@ import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
 export default defineConfig({
+  // GitHub Pages serves the app under /task-manager/.
+  base: process.env.BASE_PATH ?? '/',
   plugins: [vue(), vueDevTools(), svgLoader()],
   resolve: {
     alias: {

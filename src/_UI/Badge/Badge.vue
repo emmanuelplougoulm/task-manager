@@ -1,12 +1,10 @@
 <template>
-  <span role="status" :aria-label="label" :class="['badge', `badge--color-${color}`]">
+  <span :class="['badge', `badge--color-${color}`]">
     {{ label }}
   </span>
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-
 type TBadgeProps = {
   color: 'success' | 'error' | 'pending' | 'inProgress' | 'done' | 'neutral';
   label: string;
@@ -40,6 +38,7 @@ defineProps<TBadgeProps>();
 }
 
 .badge--color-neutral,
+.badge--color-pending,
 .badge--color-todo {
   background-color: #f9fafb;
   color: #525252;

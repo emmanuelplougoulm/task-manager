@@ -1,49 +1,32 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { toRefs } from 'vue';
-import { BaseIcon, Cell } from '@/_UI/index';
-import { useDeleteTask } from '@composables/index';
-import { useModalStore } from '@stores/index';
+import { Badge } from '@/_UI/index';
+import TaskActions from '../TaskActions.vue';
+import { STATUS_LABELS } from '@constants/index';
+import { formatDueDate } from '@/utils/format';
+import type { TTask } from '@/types';
 
-interface TableRowProps {
-  title: string;
-  description: string;
-  status: string;
-  dueDate: string;
-  id: string;
-}
-
-const { title, description, status, dueDate, id } = defineProps<TableRowProps>();
-
-const modalStore = useModalStore();
-const { openEditModal } = toRefs(modalStore);
+defineProps<{ task: TTask }>();
 </script>
 
 <template>
-  <tr>
-    <Cell :value="title" />
-    <Cell :value="description" />
-    <Cell :value="status" />
-    <Cell :value="dueDate" />
-    <td class="actions">
-      <BaseIcon @click="openEditModal(id)" class="row__icon" iconName="pencil" />
-      <BaseIcon @click="useDeleteTask(id)" class="row__icon" iconName="garbage" />
-    </td>
+  <tr class="table-row">
+    <td class="table-row__title">{{ task.title }}</td>
+    <td>{{ task.description || '—' }}</td>
+    <td><Badge :label="STATUS_LABELS[task.status]" :color="task.status" /></td>
+    <td>{{ formatDueDate(task.dueDate) }}</td>
+    <td><TaskActions :id="task.id" :title="task.title" /></td>
   </tr>
 </template>
 
 <style scoped>
-tr {
-  border: none;
+td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: var(--font-size-body);
+  vertical-align: middle;
 }
 
-.actions {
-  display: flex;
-  gap: 1.25rem;
-}
-
-.row__icon {
-  width: 1rem;
-  height: 1rem;
+.table-row__title {
+  font-weight: 600;
 }
 </style>

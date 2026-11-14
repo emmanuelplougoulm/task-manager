@@ -1,51 +1,69 @@
 <script setup lang="ts">
-import ProjectInfo from './ProjectInfo.vue';
-import { Button } from '@/_UI/index';
+import { computed } from 'vue';
+import { useProjectStore } from '../store/useProjectStore';
+
+const projectStore = useProjectStore();
+
+const today = new Date().toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long'
+});
+
+const stats = computed(() => [
+  { title: 'Today', value: today },
+  { title: 'Tasks', value: String(projectStore.tasks.length) },
+  { title: 'Done', value: `${projectStore.doneCount} / ${projectStore.tasks.length}` }
+]);
 </script>
 
 <template>
-  <div class="project-info-panel">
-    <!-- TODO: should this be in an iterable config file ?  -->
-    <ProjectInfo title="Today's date" value="21 May 2025" />
-    <ProjectInfo title="People on project" value="Lebron" />
-
-    <div class="project-info-panel__spacer"></div>
-    <Button
-      class="project-info-panel__button"
-      label="Add new task"
-      :onClick="() => (showAddModal = true)"
-    />
-  </div>
+  <header class="project-info-panel">
+    <h1 class="project-info-panel__title">Task Manager</h1>
+    <dl class="project-info-panel__stats">
+      <div v-for="stat in stats" :key="stat.title" class="project-info-panel__stat">
+        <dt>{{ stat.title }}</dt>
+        <dd :data-testid="`stat-${stat.title.toLowerCase()}`">{{ stat.value }}</dd>
+      </div>
+    </dl>
+  </header>
 </template>
 
 <style scoped>
 .project-info-panel {
-  /* border: 1px red solid; */
-  padding: 1rem;
+  padding: 1rem 1.25rem;
   background-color: var(--glassmorphism-panel-bg);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
   border-radius: 8px;
-  height: 80px;
+  color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.project-info-panel__spacer {
-  flex-grow: 1;
+.project-info-panel__title {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-/* @media only screen and (max-width: 600px) {
-  .home__header {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
+.project-info-panel__stats {
+  display: flex;
+  gap: 2rem;
+  margin: 0;
 }
 
-@media only screen and (min-width: 601px) and (max-width: 991px) {
-  .home__header {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-} */
+.project-info-panel__stat dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.project-info-panel__stat dd {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
 </style>

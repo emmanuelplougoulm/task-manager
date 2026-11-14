@@ -35,3 +35,24 @@ export const LongLabel: Story = {
     label: 'This is a long label'
   }
 };
+
+export const Ghost: Story = {
+  args: {
+    label: 'Cancel',
+    variant: 'ghost'
+  }
+};
+
+export const Danger: Story = {
+  args: {
+    label: 'Delete',
+    variant: 'danger'
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Save',
+    disabled: true
+  }
+};

@@ -16,19 +16,32 @@ export default defineConfigWithVueTs(
     files: ['**/*.{ts,mts,tsx,vue}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  globalIgnores([
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    'storybook-static/**',
+    'playwright-report/**',
+    'test-results/**',
+  ]),
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
   
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
+    files: ['src/**/*.test.ts'],
+  },
+
+  // Design-system primitives (Button, Badge, Tabs...) keep single-word names.
+  {
+    files: ['src/_UI/**/*.vue'],
+    rules: { 'vue/multi-word-component-names': 'off' },
   },
   
   {
     ...pluginPlaywright.configs['flat/recommended'],
-    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
+    files: ['e2e/**/*.ts'],
   },
   skipFormatting,
 )

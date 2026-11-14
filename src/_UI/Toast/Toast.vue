@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { useToastStore } from '@stores/index';
 import { Badge } from '@/_UI/index';
@@ -10,14 +9,14 @@ const { remove } = toastStore;
 </script>
 
 <template>
-  <transition-group name="toast" tag="div" class="toast-container">
+  <transition-group name="toast" tag="div" class="toast-container" role="status" aria-live="polite">
     <div v-for="toast in toasts" :key="toast.id" class="toast">
       <div :class="[`toast__content`, `toast__content--${toast.type}`]">
         <div class="toast__content__badge">
           <Badge :label="toast.type" :color="toast.type" />
         </div>
         <div>{{ toast.message }}</div>
-        <button class="toast__close" @click="remove(toast.id)">×</button>
+        <button type="button" class="toast__close" aria-label="Dismiss notification" @click="remove(toast.id)">×</button>
       </div>
     </div>
   </transition-group>

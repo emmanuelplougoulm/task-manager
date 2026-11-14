@@ -1,23 +1,19 @@
 <script setup lang="ts">
 import TaskList from './TaskList.vue';
-import { BOARD_LISTS } from '@constants/index';
+import { TASK_STATUSES } from '@constants/index';
 </script>
 
 <template>
   <div class="board">
-    <TaskList v-for="(list, index) in BOARD_LISTS" :key="index" :listName="list" />
+    <TaskList v-for="status in TASK_STATUSES" :key="status" :status="status" />
   </div>
 </template>
 
 <style scoped>
 .board {
-  /* border: 1px red solid; */
-  /* border-radius: 0.5rem; */
-  flex: 1 1 0;
-  /* padding: 16px; */
-  display: flex;
-  align-items: flex-start;
-  gap: 0.625rem;
-  /* overflow-x: scroll; */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding-top: 0.75rem;
 }
 </style>

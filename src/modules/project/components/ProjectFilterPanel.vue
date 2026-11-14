@@ -1,53 +1,72 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { toRefs } from 'vue';
-// import { useModalStore, useTaskStore } from '@stores/index';
-import { Dropdown } from '@/_UI/index';
+import { useProjectStore } from '../store/useProjectStore';
 import { FILTER_OPTIONS, SORT_OPTIONS } from '@constants/index';
 
-// const taskStore = useTaskStore();
-// const { filterStatus, sortOrder } = toRefs(taskStore);
-
-// const modalStore = useModalStore();
-// const { showAddModal } = toRefs(modalStore);
+const projectStore = useProjectStore();
 </script>
 
 <template>
-  <div class="filter-panel">
-    <input type="text" placeholder="search a task" />
-
+  <div class="filter-panel" role="search" aria-label="Filter tasks">
+    <input
+      v-model="projectStore.search"
+      class="filter-panel__search"
+      type="search"
+      placeholder="Search tasks"
+      aria-label="Search tasks"
+    />
     <div class="filter-panel__spacer"></div>
-    <div class="filter-panel__cta">
-      <!-- <Dropdown v-model="sortOrder" :options="SORT_OPTIONS" placeholder="Sort" />
-      <Dropdown v-model="filterStatus" :options="FILTER_OPTIONS" placeholder="Filter" /> -->
-    </div>
+    <label class="filter-panel__select">
+      <span>Status</span>
+      <select v-model="projectStore.filterStatus">
+        <option v-for="option in FILTER_OPTIONS" :key="option.value" :value="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </label>
+    <label class="filter-panel__select">
+      <span>Sort</span>
+      <select v-model="projectStore.sortOrder">
+        <option v-for="option in SORT_OPTIONS" :key="option.value" :value="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </label>
   </div>
 </template>
 
-<style>
+<style scoped>
 .filter-panel {
-  border: 1px blue solid;
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  height: 60px;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: white;
+}
+
+.filter-panel__search {
+  min-width: 220px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  font: inherit;
+  font-size: 14px;
 }
 
 .filter-panel__spacer {
   flex-grow: 1;
 }
 
-.filter-panel__cta {
+.filter-panel__select {
   display: flex;
-  gap: 0.625rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
 }
 
-/* @media only screen and (max-width: 600px) {
-  .filter-panel {
-    height: 6.25rem;
-    flex-direction: column;
-    gap: 0.25rem;
-    align-items: flex-start;
-  }
-} */
+.filter-panel__select select {
+  padding: 0.4rem;
+  border-radius: 4px;
+  font: inherit;
+}
 </style>

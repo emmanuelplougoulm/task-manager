@@ -1,24 +1,24 @@
 <template>
   <button
-    :class="[`button`]"
-    @click="onClick"
-    role="button"
+    :type="type"
+    :class="['button', `button--${variant}`]"
+    :disabled="disabled"
+    @click="onClick?.()"
   >
-    <div>
-      {{ label }}
-    </div>
+    {{ label }}
   </button>
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-
 type TButtonProps = {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'ghost' | 'danger';
+  disabled?: boolean;
 };
 
-defineProps<TButtonProps>();
+const { type = 'button', variant = 'primary', disabled = false } = defineProps<TButtonProps>();
 </script>
 
 <style>
@@ -33,8 +33,7 @@ button {
   font-size: var(--font-size-body);
 
   text-wrap: nowrap;
-  text-transform: capitalize;
-
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +45,39 @@ button {
   padding: 8px 12px;
 }
 
-/* .button:hover {
-  background-color: var(--color-secondary-bg);
-} */
+.button {
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.button:hover {
+  background-color: #6a4bd8;
+}
+
+.button--ghost {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.button--ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button--danger {
+  background-color: #b3261e;
+}
+
+.button--danger:hover {
+  background-color: #8c1d18;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid #c8b8ff;
+  outline-offset: 2px;
+}
 </style>

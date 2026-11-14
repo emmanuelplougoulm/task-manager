@@ -1,61 +1,47 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-// import { ref, watch } from 'vue';
-// import { useTaskStore } from '@stores/index';
+import { computed } from 'vue';
+import TaskForm from './TaskForm.vue';
+import { Button } from '@/_UI/index';
+import { useProjectStore } from '../../store/useProjectStore';
+import { useCardPanel } from '@composables/useCardPanel';
+import { useDeleteTask } from '@composables/useDeleteTask';
+import { useToastStore, useUIStore } from '@stores/index';
+import type { TTask } from '@/types';
 
-type TCardDetailProps = {
-  show: boolean;
+const projectStore = useProjectStore();
+const uiStore = useUIStore();
+const toast = useToastStore();
+const { closePanel } = useCardPanel();
+const deleteTask = useDeleteTask();
+
+const task = computed(() =>
+  uiStore.rightPanel.cardId ? projectStore.getTaskById(uiStore.rightPanel.cardId) : undefined
+);
+
+// A fresh object per task so the form resets when another task is opened.
+const initial = computed(() => (task.value ? { ...task.value } : undefined));
+
+const onSubmit = (values: Omit<TTask, 'id'>) => {
+  if (!task.value) return;
+  projectStore.editTask(task.value.id, values);
+  toast.show('Task updated', 'success');
+  closePanel();
 };
-
-// const localTask = ref();
-
-// const taskStore = useTaskStore();
-// const { getTaskById, editTask, currentTaskId } = taskStore;
-
-// console.log('currentTaskId', currentTaskId);
-
-// watch(currentTaskId, (newId) => {
-//   if (!newId) return;
-//   const originalTask = getTaskById(newId);
-
-//   if (originalTask) {
-//     localTask.value = { ...originalTask };
-//   }
-// });
-
-defineProps<TCardDetailProps>();
 </script>
 
 <template>
-  <div :class="['card-details', { show: show }]">
-    I AM THE EDIT CARD
-    <!-- <div v-if="localTask" class="content">
-      <TextInput label="title" v-model:text="localTask.title" type="text" />
-      <TextInput label="description" v-model:text="localTask.description" type="text" />
-      <TextInput label="due date" v-model:text="localTask.dueDate" type="date" />
-    </div> -->
-  </div>
+  <TaskForm
+    v-if="task"
+    :key="task.id"
+    heading="Edit task"
+    submitLabel="Save changes"
+    :initial="initial"
+    showStatus
+    @submit="onSubmit"
+    @cancel="closePanel"
+  >
+    <template #extra-actions>
+      <Button variant="danger" label="Delete" :onClick="() => task && deleteTask(task.id)" />
+    </template>
+  </TaskForm>
 </template>
-
-<style scoped>
-* {
-  box-sizing: border-box;
-}
-
-.card-details {
-  width: 100px;
-  opacity: 1;
-  overflow: hidden;
-  height: 100%;
-  background-color: var(--glassmorphism-panel-bg);
-  border-radius: 8px;
-  transition:
-    width 0.2s,
-    opacity 0.2s;
-}
-
-.card-details.show {
-  width: 300px;
-  opacity: 1;
-}
-</style>

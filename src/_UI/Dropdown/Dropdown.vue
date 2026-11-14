@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { BaseIcon } from '@/_UI/index';
 
 type TDropdownProps = {

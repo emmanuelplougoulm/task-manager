@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
+export type TPanelMode = 'create' | 'edit' | null;
+
 interface RightPanel {
   open: boolean;
-  mode: 'create' | 'edit' | null;
+  mode: TPanelMode;
   cardId: string | null;
 }
 

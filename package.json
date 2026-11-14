@@ -7,14 +7,16 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
     "format": "prettier --write src/",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "lint:fix": "eslint . --fix",
+    "test:unit:watch": "vitest"
   },
   "dependencies": {
     "pinia": "^3.0.1",
@@ -22,6 +24,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.55.1",
     "@storybook/addon-essentials": "^8.6.19",
     "@storybook/addon-interactions": "^8.6.19",
@@ -59,5 +62,8 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

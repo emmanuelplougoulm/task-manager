@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, shallowRef, watchEffect } from 'vue';
+import { shallowRef, watchEffect } from 'vue';
 
 type TIconProps = {
   iconName: string;

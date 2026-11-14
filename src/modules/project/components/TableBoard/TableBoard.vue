@@ -1,82 +1,38 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { Row } from '@/_UI/index';
-import type { TTask } from '@/types';
+import TableRow from './TableRow.vue';
+import EmptyState from '../EmptyState.vue';
+import { useProjectStore } from '../../store/useProjectStore';
 import { TABLE_HEAD } from '@constants/index';
 
-defineProps<{
-  hasTask: boolean;
-  filteredTasks?: TTask[];
-}>();
+const projectStore = useProjectStore();
 </script>
 
 <template>
-  <table v-if="hasTask">
+  <table v-if="projectStore.filteredTasks.length" class="table-board" aria-label="Tasks">
     <thead>
       <tr>
-        <th v-for="(item, index) in TABLE_HEAD" :key="index">
-          {{ item }}
-        </th>
+        <th v-for="item in TABLE_HEAD" :key="item" scope="col">{{ item }}</th>
       </tr>
     </thead>
     <tbody>
-      <!-- <Row
-        v-for="task in filteredTasks"
-        :key="task.id"
-        :title="task.title"
-        :description="task.description"
-        :status="task.status"
-        :dueDate="task.dueDate"
-        :id="task.id"
-      /> -->
+      <TableRow v-for="task in projectStore.filteredTasks" :key="task.id" :task="task" />
     </tbody>
   </table>
-  <div class="table__no-task" v-else>
-    <p>Oh no ! You have no task yet... <br />Add one to get started !</p>
-  </div>
+  <EmptyState v-else :filtered="projectStore.hasTask" />
 </template>
 
 <style scoped>
-table {
-  border: 1px blue solid;
+.table-board {
   width: 100%;
   border-collapse: collapse;
-  /* table-layout: fixed; */
+  color: white;
 }
 
-thead tr th {
-  width: 100%;
+th {
   padding: 10px;
-  border-top: 1px var(--color-neutral) solid;
-  border-bottom: 1px var(--color-neutral) solid;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
   text-align: left;
   font-size: var(--font-size-body);
-  text-transform: capitalize;
-  font-weight: 600;
-}
-
-tbody tr:nth-child(odd) {
-  background-color: #f9fafb;
-}
-
-tbody tr:nth-child(even) {
-  background-color: var(--color-secondary-bg);
-}
-
-.table__no-task {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  background-color: var(--color-secondary-bg);
-  height: 100%;
-}
-
-.table__no-task p {
-  text-align: center;
-  font-family: var(--font-family);
-  color: var(--color-primary);
-  font-size: 48px;
   font-weight: 600;
 }
 </style>
